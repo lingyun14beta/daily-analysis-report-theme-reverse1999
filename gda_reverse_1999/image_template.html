@@ -76,6 +76,24 @@
                 radial-gradient(ellipse 700px 500px at 92% 104%, rgba(221, 194, 134, 0.22) 0%, transparent 70%);
         }
 
+        /* 暴雨·雨幕层（游戏第一符号：暴雨从来不停） */
+        .page::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 5;
+            background-image:
+                repeating-linear-gradient(103deg, transparent 0 26px, rgba(96, 118, 122, 0.055) 26px 27px, transparent 27px 30px),
+                repeating-linear-gradient(77deg, transparent 0 47px, rgba(96, 118, 122, 0.04) 47px 48px),
+                radial-gradient(3px 3px at 12% 30%, rgba(148, 168, 170, 0.10) 50%, transparent 51%),
+                radial-gradient(2.5px 2.5px at 34% 62%, rgba(148, 168, 170, 0.08) 50%, transparent 51%),
+                radial-gradient(3px 3px at 58% 18%, rgba(148, 168, 170, 0.09) 50%, transparent 51%),
+                radial-gradient(2px 2px at 76% 45%, rgba(148, 168, 170, 0.08) 50%, transparent 51%),
+                radial-gradient(3.2px 3.2px at 90% 74%, rgba(148, 168, 170, 0.10) 50%, transparent 51%),
+                radial-gradient(2px 2px at 22% 86%, rgba(148, 168, 170, 0.07) 50%, transparent 51%);
+        }
+
         .avoid-break {
             page-break-inside: avoid;
             break-inside: avoid;
@@ -230,6 +248,41 @@
 
         .hero-bubble b {
             color: var(--rust);
+        }
+
+        /* 逆转时钟徽章（1999 · 时间倒转） */
+        .rev-clock {
+            position: absolute;
+            left: -24px;
+            bottom: -20px;
+            width: 94px;
+            height: 94px;
+            border-radius: 50%;
+            background: #fffefa;
+            border: 1px solid var(--line-strong);
+            box-shadow: 0 6px 16px rgba(93, 74, 40, 0.16);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: rotate(-4deg);
+            z-index: 4;
+        }
+
+        .rev-clock .rc-label {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%) rotate(4deg);
+            background: var(--green-deep);
+            color: #f0dfae;
+            font-family: var(--font-title);
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            padding: 3px 10px;
+            border-radius: 999px;
+            white-space: nowrap;
+            box-shadow: 0 3px 8px rgba(31, 53, 48, 0.3);
         }
 
         /* 贴纸角标 */
@@ -1080,7 +1133,38 @@
             <!-- 主视觉：1852 宇宙志古图 -->
             <div class="hero-art avoid-break">
                 <div class="sticker">暴雨档案馆</div>
-                <div class="hero-bubble">「<b>司辰</b>」今日星图已归档</div>
+                <div class="hero-bubble">「<b>司辰</b>」今日观测已归档</div>
+                <div class="rev-clock">
+                    <span class="rc-label">1999.12.31 23:59</span>
+                    <svg width="66" height="66" viewBox="0 0 84 84" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- 逆转时钟：逆时针指针 + 雨滴 -->
+                        <circle cx="42" cy="42" r="36" stroke="#b98a3c" stroke-width="1.4" />
+                        <circle cx="42" cy="42" r="29" stroke="#b98a3c" stroke-width="0.7" opacity="0.5" />
+                        <g stroke="#b98a3c" stroke-width="1.3">
+                            <line x1="42" y1="9" x2="42" y2="14.5" />
+                            <line x1="42" y1="69.5" x2="42" y2="75" />
+                            <line x1="9" y1="42" x2="14.5" y2="42" />
+                            <line x1="69.5" y1="42" x2="75" y2="42" />
+                        </g>
+                        <g stroke="#b98a3c" stroke-width="0.8" opacity="0.6">
+                            <line x1="52.5" y1="14.5" x2="49.8" y2="19.2" />
+                            <line x1="31.5" y1="14.5" x2="34.2" y2="19.2" />
+                            <line x1="52.5" y1="69.5" x2="49.8" y2="64.8" />
+                            <line x1="31.5" y1="69.5" x2="34.2" y2="64.8" />
+                            <line x1="14.5" y1="31.5" x2="19.2" y2="34.2" />
+                            <line x1="14.5" y1="52.5" x2="19.2" y2="49.8" />
+                            <line x1="69.5" y1="31.5" x2="64.8" y2="34.2" />
+                            <line x1="69.5" y1="52.5" x2="64.8" y2="49.8" />
+                        </g>
+                        <!-- 逆时针指针（走向 1999 之前） -->
+                        <line x1="42" y1="42" x2="42" y2="18" stroke="#8a6428" stroke-width="2.6" stroke-linecap="round" transform="rotate(-55 42 42)" />
+                        <line x1="42" y1="42" x2="42" y2="13" stroke="#8a6428" stroke-width="1.5" stroke-linecap="round" transform="rotate(140 42 42)" />
+                        <circle cx="42" cy="42" r="3" fill="#b3402f" />
+                        <!-- 雨滴 -->
+                        <path d="M 30 6.5 C 30 3.2 33.4 2.2 34.6 2 C 33.9 3.4 34.2 4.4 34.6 5 C 35.2 5.8 36 6 36 6.5 C 36 8 34.5 8.7 33 8.7 C 31.5 8.7 30 8 30 6.5 Z"
+                            fill="#5b7a80" transform="translate(-2.4 -1.4)" />
+                    </svg>
+                </div>
                 <div class="art-frame"></div>
                 <img class="hero-character" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Astronomer_holding_instrument_LCCN2006691905.jpg/960px-Astronomer_holding_instrument_LCCN2006691905.jpg" alt="持浑天仪的天文学家">
                 <div class="art-caption">TABLEAU URANOGRAPHIQUE ET COSMOGRAPHIQUE · M. VUILLEMIN, 1852</div>
@@ -1167,9 +1251,9 @@
         <!-- 页脚 -->
         <div class="footer">
             <div class="deco-char avoid-break"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Durer_astronomer.jpg" alt="丢勒·天文学家"></div>
-            <div class="footer-art avoid-break"><div class="art-disc"></div></div><div class="footer-art2 avoid-break"><div class="art-disc2"></div></div><div class="seal">已归档<span>ARCHIVED</span></div>
+            <div class="footer-art avoid-break"><div class="art-disc"></div></div><div class="footer-art2 avoid-break"><div class="art-disc2"></div></div><div class="seal">暴雨录<span>STORM ARCHIVED</span></div>
             <div class="footer-line">本报告由 AstrBot 群聊日常分析插件生成 · 暴雨过后，记录永存</div>
-            <div class="footer-orn">✦ &nbsp;A STRBOT &nbsp;✦&nbsp; GROUP DAILY ANALYSIS</div>
+            <div class="footer-orn">✦ &nbsp;ASTRBOT &nbsp;✦&nbsp; GROUP DAILY ANALYSIS</div>
             <div class="token-line">分析耗时 Token：{{ total_tokens }}（Prompt {{ prompt_tokens }} / 生成 {{ completion_tokens }}）</div>
         </div>
     </div>

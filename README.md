@@ -3,8 +3,9 @@
 本仓库是 [astrbot_plugin_qq_group_daily_analysis](https://github.com/SXP-Simon/astrbot_plugin_qq_group_daily_analysis)
 的 **报告视觉模板仓库**，可以作为你自己的模板仓库的起点。
 
-内置模板：**`gda_reverse_1999`（暴雨档案馆 Reverse: 1999）** —— 重返未来1999 风格羊皮纸手账，
-米白纸底 × 1852 宇宙志镶框古图 × 墨绿鎏金圆角卡片，渐变柱图与朱红峰值，观星者纪念章页脚。
+内置模板：**`gda_reverse_1999`（暴雨档案馆 Reverse: 1999）** —— 重返未来1999 主题羊皮纸手账，
+米白纸底 × 1852 宇宙志镶框古图 × 全页雨幕 × 逆转时钟徽章（1999.12.31 23:59），
+「司辰」观测者立绘 + 朵勒木刻探底，渐变柱图与朱红峰值，暴雨录印章页脚。
 
 > 预览：
 > ![暴雨档案馆预览图](assets/gda_reverse_1999-demo-thumb.jpg)
@@ -172,6 +173,16 @@ python generate_preview.py [模板名]     # 缺省为 gda_reverse_1999
 直接「印」在羊皮纸卡上（版画白底与纸底融合，无需抠图），配 `filter: grayscale+sepia` 统一色调；
 对话气泡用纯 CSS 小尾巴指向人物；页脚人物绝对定位右下、底部探出页边（`bottom: -6px`）；
 群友卡可选 `title.profile_image`（插件注入）做右下角 12% 透明淡印（`.t-profile`）。
+
+## 游戏主题还原（重返未来：1999）
+
+- **全页雨幕**：`.page::after` 用 `repeating-linear-gradient` 双角度雨丝 + 雨滴光斑，
+  覆盖整张报告——「暴雨」是游戏的灾变符号，「暴雨从来不停」
+- **逆转时钟**：`hero-art` 左下角徽章，逆时针指针 + 红心 + 雨滴，标签「1999.12.31 23:59」
+  （暴雨降临时刻）；时间倒转是游戏的核心设定
+- **司辰**：ヴェルティン式观测者人设由版画承担（绘图 + 气泡「今日观测已归档」），
+  呼应「记录者」而非天文学家的定位
+- 印章「**暴雨录 / STORM ARCHIVED**」呼应档案主题；<code>已归档</code> 文案保留暴雨意象
 
 三张图在模板里通过 `background-image` 引用（失败时优雅降级、不破坏版面）。
 `assets/<模板名>/art/` 下保存了本地副本：`generate_preview.py` 渲染预览图时会把直链
