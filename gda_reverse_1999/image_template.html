@@ -1,3 +1,150 @@
-<!doctype html><html lang="{{ 'zh-CN' if t2i_font_source == 'Mainland' else 'zh-Hant' }}"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>暴雨观测日报 · {{ current_date }}</title><link rel="preconnect" href="{{ t2i_google_fonts_mirror }}"><link href="{{ t2i_google_fonts_mirror }}/css2?family=Noto+Serif+SC:wght@500;700;900&family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700&family=DM+Mono&display=swap" rel="stylesheet"><style>
-:root{--bg:#e9eff0;--page:#f8faf7;--card:rgba(255,255,255,.82);--card-solid:#fffefa;--ink:#263c3b;--muted:#71817d;--faint:#a8b4b0;--teal:#2f6d68;--teal-light:#b9ded7;--gold:#c39b58;--red:#bd5a4d;--pink:#e8c3bd;--line:#d6dfdb;--font-title:{% if t2i_font_source == 'Mainland' %}'Noto Serif SC','Noto Serif TC'{% else %}'Noto Serif TC','Noto Serif SC'{% endif %},serif;--font-body:{% if t2i_font_source == 'Mainland' %}'Noto Sans SC','Noto Sans TC'{% else %}'Noto Sans TC','Noto Sans SC'{% endif %},sans-serif;--mono:'DM Mono',monospace}*{box-sizing:border-box;margin:0;padding:0}html{background:var(--bg)}body{font-family:var(--font-body);font-size:15px;line-height:1.75;color:var(--ink);padding:24px 0;-webkit-print-color-adjust:exact;print-color-adjust:exact}.page{width:750px;margin:auto;position:relative;overflow:hidden;border:1px solid #d5e2e2;border-radius:26px;background:var(--page);box-shadow:0 18px 55px rgba(46,84,83,.15);padding:26px 26px 32px}.page:before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 87% 8%,rgba(191,228,221,.55),transparent 24%),repeating-linear-gradient(105deg,transparent 0 38px,rgba(52,104,98,.035) 39px 40px),radial-gradient(circle at 12px 12px,rgba(71,130,121,.10) 1px,transparent 1.5px);background-size:auto,auto,24px 24px}.page>*{position:relative;z-index:1}.avoid-break{break-inside:avoid;page-break-inside:avoid}.mast{display:grid;grid-template-columns:1.15fr .85fr;min-height:245px;position:relative;overflow:hidden;padding:25px 26px 20px;border-radius:20px;background:linear-gradient(135deg,#d5eceb,#edf7f2 65%,#d4e9e3);border:1px solid #b9d9d5}.mast:after{content:"1999";position:absolute;right:-11px;top:-27px;font:900 158px/1 var(--font-title);color:rgba(45,105,99,.08)}.mast-copy{position:relative;z-index:2}.kicker,.en,.mini{font:9px var(--mono);letter-spacing:1.5px;color:var(--teal)}.mast h1{margin-top:17px;font:900 39px/1.22 var(--font-title);letter-spacing:5px;color:var(--ink)}.mast .en{margin-top:7px;color:#6a8883}.mast-note{width:245px;margin-top:23px;padding:9px 12px;border-left:3px solid var(--red);font:13px/1.7 var(--font-title);color:#496763;background:rgba(255,255,255,.42)}.mast-date{margin-top:17px;font:9px var(--mono);color:var(--muted)}.mast-date b{color:var(--ink);font-weight:400}.mast-art{position:relative;min-height:205px}.mast-char{position:absolute;right:-45px;bottom:-40px;width:285px;filter:drop-shadow(-10px 13px 10px rgba(32,78,76,.18))}.mast-stamp{position:absolute;left:8px;bottom:14px;width:66px;height:66px;border:1px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;text-align:center;color:var(--red);font:8px/1.5 var(--mono);transform:rotate(-12deg);background:rgba(255,254,244,.4)}.mast-stamp:after{content:"";position:absolute;inset:6px;border:1px dashed var(--gold);border-radius:50%}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:13px 0 17px}.stat{padding:13px 14px 11px;border:1px solid var(--line);border-top:3px solid var(--gold);border-radius:12px;background:var(--card)}.stat b{display:block;font:900 27px/1.1 var(--font-title);color:var(--teal)}.stat small{display:block;margin-top:6px;color:var(--muted);font-size:10px}.stat span{display:block;margin-top:2px;font:8px var(--mono);letter-spacing:1px;color:var(--faint)}.module{margin-top:15px;padding:20px 21px 19px;border:1px solid var(--line);border-radius:17px;background:var(--card);box-shadow:0 4px 13px rgba(51,91,85,.05)}.module-head{display:flex;align-items:center;gap:11px;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--line)}.module-no{display:flex;width:30px;height:30px;align-items:center;justify-content:center;border-radius:9px;background:var(--teal);color:#fffdf3;font:700 14px var(--font-title)}.module-title{font:900 19px/1.25 var(--font-title);letter-spacing:2px}.module-title .en{display:block;margin-top:3px;font-size:8px;font-weight:400;letter-spacing:1.4px}.badge{margin-left:auto;padding:4px 8px;border-radius:999px;background:#e6f1ed;color:var(--teal);font:8px var(--mono);letter-spacing:1px}.peak-box{display:inline-block;margin:0 0 12px;padding:5px 10px;border-radius:8px;background:#e8f1ed;color:var(--muted);font:10px var(--mono)}.peak-box b{color:var(--red)}.chart-wrap{padding:12px 10px 9px;border-radius:11px;background:#f8fbf6;border:1px solid #dce6df}.chart-col{padding-top:17px;background:repeating-linear-gradient(0deg,transparent 0 38px,rgba(74,115,108,.12) 39px 40px)}.chart-bars{display:flex;align-items:flex-end;gap:4px;height:145px}.chart-item{flex:1;height:100%;display:flex;align-items:flex-end;justify-content:center;position:relative}.chart-bar{width:76%;min-height:3px;background:linear-gradient(to top,#578b82,#d1ac68);border-radius:4px 4px 1px 1px}.chart-bar.peak{background:linear-gradient(to top,#b04f45,#eea080)}.chart-val{position:absolute;bottom:calc(100% + 5px);font:8px var(--mono);color:var(--red)}.chart-hr{border:0;border-top:1px solid #a8bbb4}.chart-labels{display:flex;gap:4px;padding-top:4px}.chart-labels span{flex:1;text-align:center;font:8px var(--mono);color:var(--faint)}.chart-caption{display:flex;justify-content:space-between;margin-top:8px;font:8px var(--mono);color:var(--muted)}.chart-caption b{color:var(--red)}.topic-item{display:flex;gap:13px;padding:12px 0;border-bottom:1px solid var(--line)}.topic-item:last-child{border-bottom:0}.topic-no{flex:none;width:40px;text-align:center}.topic-no b{display:block;font:900 20px/1 var(--font-title);color:var(--red)}.topic-no span{font:7px var(--mono);color:var(--faint)}.topic-title{font:700 15px/1.45 var(--font-title)}.topic-meta{margin-top:2px;font:9px var(--mono);color:var(--teal)}.topic-detail{margin-top:4px;font-size:12px;color:var(--muted);line-height:1.7}.title-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.title-card{position:relative;min-height:158px;padding:13px 11px;border:1px solid var(--line);border-radius:12px;background:linear-gradient(145deg,#fffefa,#eef5ef);overflow:hidden}.t-avatar{width:45px;height:45px;overflow:hidden;border-radius:50%;border:2px solid var(--gold);background:#edf2ec}.t-avatar img{width:100%;height:100%;object-fit:cover}.t-name{margin-top:6px;font:700 14px var(--font-title)}.t-badges{display:flex;gap:4px;margin-top:5px;flex-wrap:wrap}.t-title-tag,.t-mbti{padding:2px 5px;border:1px solid #b4cbc2;font-size:8px;color:var(--teal)}.t-mbti{color:var(--red);border-color:#dfb5ae;font-family:var(--mono)}.t-reason{margin-top:7px;padding-top:6px;border-top:1px solid var(--line);font-size:10px;line-height:1.6;color:var(--muted)}.t-profile{position:absolute;right:-9px;bottom:-6px;width:48%;opacity:.07}.quote-wrapper{padding:10px 0;border-bottom:1px solid var(--line)}.quote-wrapper:last-child{border-bottom:0}.q-flex{display:flex;gap:11px}.q-side{flex:none;width:46px;text-align:center}.q-avatar{width:39px;height:39px;border-radius:50%;object-fit:cover;border:2px solid var(--gold)}.q-sender{font:8px var(--mono);color:var(--muted);word-break:break-all}.q-main{flex:1}.q-bubble{padding:9px 12px 9px 25px;border-left:3px solid var(--red);border-radius:0 9px 9px 0;background:#fffdf6;position:relative;font:13px/1.65 var(--font-title)}.q-bubble:before{content:"“";position:absolute;left:8px;top:2px;color:var(--red);font:22px var(--font-title)}.q-note{padding:5px 9px;font-size:10px;color:var(--muted)}.note-label{font:8px var(--mono);letter-spacing:.5px;color:var(--red)}.quality-summary{max-width:78%;font-size:11px;color:var(--muted);margin-bottom:7px}.quality-summary.head{padding:8px 10px;border-left:3px solid var(--red);background:#f3e8df;font-size:13px;color:var(--ink)}.quality-summary b{font-family:var(--font-title)}.dim-row{display:flex;align-items:center;gap:9px;max-width:78%;padding:6px 0;font-size:10px}.dim-name{width:60px;font-family:var(--font-title);font-weight:700}.dim-bar-box{flex:1;height:7px;background:#e0e7e1;border-radius:99px;overflow:hidden}.dim-bar{height:100%;background:var(--teal-light)}.dim-bar.d2{background:#f0a08d}.dim-bar.d3{background:#d5ae63}.dim-comment{width:104px;color:var(--muted)}.block-char{position:absolute;right:3px;bottom:-10px;width:138px;opacity:.9;pointer-events:none}.footer{margin-top:17px;padding-top:18px;border-top:1px solid var(--line);text-align:center}.seal{display:inline-flex;width:54px;height:54px;align-items:center;justify-content:center;border:1px solid var(--red);border-radius:50%;color:var(--red);font:700 11px var(--font-title)}.footer-line{margin-top:8px;font-size:10px;color:var(--muted)}.token-line{margin-top:3px;font:8px var(--mono);color:var(--faint)}
-</style></head><body><main class="page"><header class="mast"><div class="mast-copy"><div class="kicker">REVERSE: 1999 / TIMEKEEPER REPORT</div><h1>群聊日常分析</h1><div class="en">TODAY'S CONVERSATION, PRESERVED IN THE STORM</div><div class="mast-note">暴雨未曾冲走的，都会成为被记录的故事。</div><div class="mast-date">ARCHIVE <b>{{ current_date }}</b> / RECORDED <b>{{ current_datetime }}</b></div></div><div class="mast-art"><img class="mast-char" src="https://re.bluepoch.com/home/img/role/2.png" alt="维尔汀"><div class="mast-stamp">1999.12.31<br>23:59</div></div></header><section class="stats"><div class="stat"><b>{{ message_count }}</b><small>消息总数</small><span>MESSAGES</span></div><div class="stat"><b>{{ participant_count }}</b><small>参与人数</small><span>MEMBERS</span></div><div class="stat"><b>{{ emoji_count }}</b><small>表情包</small><span>STICKERS</span></div><div class="stat"><b>{{ total_characters }}</b><small>文字总量</small><span>CHARACTERS</span></div></section><section class="module">{{ hourly_chart_html|safe }}</section><section class="module">{{ topics_html|safe }}</section><section class="module">{{ titles_html|safe }}</section><section class="module">{{ quotes_html|safe }}</section>{% if chat_quality_html %}<section class="module">{{ chat_quality_html|safe }}</section>{% endif %}<footer class="footer"><div class="seal">暴雨录</div><div class="footer-line">由 AstrBot 群聊日常分析插件生成 · 司辰观测完毕</div><div class="token-line">TOKEN {{ total_tokens }} / PROMPT {{ prompt_tokens }} / COMPLETION {{ completion_tokens }}</div></footer></main></body></html>
+<!doctype html>
+<html lang="{{ 'zh-CN' if t2i_font_source == 'Mainland' else 'zh-Hant' }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>暴雨观测档案 · {{ current_date }}</title>
+  <link rel="preconnect" href="{{ t2i_google_fonts_mirror }}">
+  <link href="{{ t2i_google_fonts_mirror }}/css2?family=Noto+Serif+SC:wght@600;700;900&family=Noto+Serif+TC:wght@600;700;900&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700&family=DM+Mono&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #f2ebdd;
+      --paper-deep: #e8dece;
+      --paper-light: #f8f4eb;
+      --ink: #202124;
+      --muted: #6d6b67;
+      --slate: #607886;
+      --slate-deep: #314b58;
+      --wine: #8e2733;
+      --wine-soft: #ead8d4;
+      --ochre: #d7a83b;
+      --sage: #6a806b;
+      --line: #c9bfae;
+      --title-font: {% if t2i_font_source == 'Mainland' %}'Noto Serif SC','Noto Serif TC'{% else %}'Noto Serif TC','Noto Serif SC'{% endif %}, serif;
+      --body-font: {% if t2i_font_source == 'Mainland' %}'Noto Sans SC','Noto Sans TC'{% else %}'Noto Sans TC','Noto Sans SC'{% endif %}, sans-serif;
+      --mono: 'DM Mono', monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { background: #26343b; }
+    body { padding: 28px 0; color: var(--ink); background: #26343b; font: 15px/1.7 var(--body-font); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .report { width: 750px; margin: 0 auto; position: relative; overflow: hidden; padding: 28px 32px 34px; background: var(--paper); box-shadow: 0 20px 60px rgba(0,0,0,.24); }
+    .report:before { content: ''; position: absolute; inset: 0; pointer-events: none; opacity: .34; background-image: radial-gradient(#8d7d6a .65px, transparent .65px), linear-gradient(90deg, transparent 49.8%, rgba(91,75,58,.05) 50%, transparent 50.2%); background-size: 11px 11px, 100% 100%; }
+    .report > * { position: relative; z-index: 1; }
+    .mono, .eyebrow, .en, .stamp, .stat-label, .caption, .footer-meta { font-family: var(--mono); letter-spacing: 1px; }
+    .eyebrow, .en { color: var(--wine); font-size: 10px; text-transform: uppercase; }
+    .masthead { min-height: 310px; position: relative; overflow: hidden; padding: 24px 25px 21px; color: #f6efe2; background: var(--slate-deep) url('https://re.bluepoch.com/home/img/first/1.png') center/cover; border: 1px solid #172831; }
+    .masthead:before { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(26,39,47,.98) 0%, rgba(26,39,47,.83) 44%, rgba(26,39,47,.22) 100%); }
+    .masthead:after { content: '暴雨'; position: absolute; right: -14px; top: -24px; color: rgba(242,235,221,.12); font: 900 170px/1 var(--title-font); writing-mode: vertical-rl; }
+    .masthead > * { position: relative; z-index: 1; }
+    .masthead .eyebrow { color: var(--ochre); }
+    .masthead h1 { max-width: 420px; margin-top: 34px; font: 900 43px/1.15 var(--title-font); letter-spacing: 4px; }
+    .mast-subtitle { margin-top: 8px; color: #d9d6ce; font: 11px var(--mono); letter-spacing: 1.6px; }
+    .mast-note { max-width: 360px; margin-top: 19px; color: #eee4d4; font-size: 15px; }
+    .mast-meta { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 25px; padding-top: 13px; border-top: 1px solid rgba(242,235,221,.35); color: #c6c7c1; font: 10px var(--mono); }
+    .mast-art { position: absolute; right: 10px; bottom: -25px; width: 280px; height: 315px; }
+    .mast-char { width: 100%; height: 100%; object-fit: contain; object-position: bottom center; filter: drop-shadow(0 12px 10px rgba(0,0,0,.25)); }
+    .archive-seal { position: absolute; right: 23px; top: 20px; z-index: 2; width: 68px; height: 68px; display: grid; place-items: center; border: 1px solid var(--ochre); color: var(--ochre); border-radius: 50%; text-align: center; font: 10px/1.25 var(--mono); transform: rotate(9deg); }
+    .summary { display: grid; grid-template-columns: 1.3fr .85fr .85fr; gap: 0; margin: 22px 0 0; border-top: 2px solid var(--ink); border-bottom: 1px solid var(--line); }
+    .summary-item { min-height: 102px; padding: 15px 15px 12px 0; border-right: 1px solid var(--line); }
+    .summary-item + .summary-item { padding-left: 16px; }
+    .summary-item:last-child { border-right: 0; }
+    .summary-number { display: block; color: var(--wine); font: 900 31px/1.1 var(--title-font); }
+    .summary-label { display: block; margin-top: 6px; font-weight: 700; }
+    .summary-note { display: block; margin-top: 3px; color: var(--muted); font-size: 11px; }
+    .section { padding: 27px 0 29px; border-bottom: 1px solid var(--line); }
+    .module-head { display: grid; grid-template-columns: 34px 1fr auto; align-items: end; gap: 10px; margin-bottom: 20px; padding-bottom: 11px; border-bottom: 1px solid var(--ink); }
+    .module-no { color: var(--wine); font: 700 24px/1 var(--title-font); }
+    .module-title { color: var(--ink); font: 700 25px/1.25 var(--title-font); }
+    .module-title .en { display: block; margin-top: 5px; font-size: 9px; }
+    .badge { padding: 4px 7px; color: var(--slate-deep); border: 1px solid var(--slate); font: 9px var(--mono); }
+    .archive-intro { margin: -5px 0 17px; color: var(--muted); font-size: 13px; }
+    .topic-item { display: grid; grid-template-columns: 70px 1fr; gap: 16px; padding: 13px 0 15px; border-bottom: 1px dashed var(--line); }
+    .topic-item:last-child { border-bottom: 0; }
+    .topic-no { color: var(--slate); font: 13px var(--mono); }
+    .topic-no b { display: block; color: var(--wine); font-size: 25px; }
+    .topic-title { font: 700 18px/1.4 var(--title-font); }
+    .topic-meta { margin-top: 3px; color: var(--slate); font: 10px var(--mono); }
+    .topic-detail { margin-top: 9px; color: var(--muted); font-size: 13px; }
+    .chart-wrap { padding: 17px 17px 13px; background: var(--paper-light); border: 1px solid var(--line); }
+    .peak-box { display: inline-block; margin-bottom: 15px; padding: 5px 9px; color: var(--paper); background: var(--wine); font: 10px var(--mono); }
+    .chart-bars { height: 155px; display: flex; align-items: end; gap: 5px; padding: 0 3px; border-bottom: 1px solid var(--slate); background: repeating-linear-gradient(to top, transparent 0 37px, rgba(96,120,134,.16) 38px); }
+    .chart-item { flex: 1; height: 100%; display: flex; flex-direction: column; justify-content: end; align-items: center; min-width: 0; }
+    .chart-val { margin-bottom: 4px; color: var(--wine); font: 9px var(--mono); }
+    .chart-bar { width: 100%; max-width: 18px; min-height: 2px; background: var(--slate); }
+    .chart-bar.peak { background: var(--wine); }
+    .chart-labels { display: flex; gap: 5px; padding-top: 7px; color: var(--muted); font: 9px var(--mono); }
+    .chart-labels span { flex: 1; text-align: center; }
+    .chart-caption { display: flex; justify-content: space-between; gap: 12px; margin-top: 15px; color: var(--muted); font: 9px var(--mono); }
+    .chart-caption b { color: var(--wine); }
+    .title-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .title-card { min-height: 190px; position: relative; padding: 13px; background: rgba(248,244,235,.75); border: 1px solid var(--line); border-top: 4px solid var(--slate); }
+    .t-avatar { width: 54px; height: 54px; float: right; overflow: hidden; margin-left: 8px; background: var(--paper-deep); border: 1px solid var(--line); }
+    .t-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+    .t-name { padding-top: 4px; font: 700 17px var(--title-font); }
+    .t-badges { display: flex; flex-wrap: wrap; gap: 5px; clear: both; padding-top: 13px; }
+    .t-badges span { padding: 3px 5px; font: 9px var(--mono); }
+    .t-title-tag { color: var(--paper); background: var(--wine); }
+    .t-mbti { color: var(--slate-deep); border: 1px solid var(--slate); }
+    .t-reason { margin-top: 12px; clear: both; color: var(--muted); font-size: 12px; }
+    .t-profile { display: none; }
+    .quote-wrapper { padding: 14px 0; border-bottom: 1px dashed var(--line); }
+    .quote-wrapper:last-child { border-bottom: 0; }
+    .q-flex { display: grid; grid-template-columns: 86px 1fr; gap: 15px; }
+    .q-side { text-align: center; }
+    .q-avatar { width: 52px; height: 52px; object-fit: cover; object-position: center top; border: 1px solid var(--line); }
+    .q-sender { margin-top: 5px; color: var(--slate-deep); font-size: 11px; word-break: break-word; }
+    .q-bubble { position: relative; padding: 13px 16px; color: var(--ink); background: var(--paper-light); border-left: 4px solid var(--ochre); font: 700 17px/1.55 var(--title-font); }
+    .q-bubble:before { content: '“'; position: absolute; left: 6px; top: -16px; color: var(--ochre); font: 42px var(--title-font); }
+    .q-note { margin-top: 8px; color: var(--muted); font-size: 12px; }
+    .note-label { color: var(--wine); font: 9px var(--mono); }
+    .block-char { float: right; width: 145px; height: 175px; margin: -25px 5px 0 14px; object-fit: contain; object-position: bottom center; filter: saturate(.8); }
+    .quality-summary { clear: both; margin: 12px 0; padding: 13px 15px; color: var(--muted); background: var(--paper-light); border-left: 4px solid var(--wine); font-size: 13px; }
+    .quality-summary.head { color: var(--ink); margin-top: 0; font: 700 18px var(--title-font); }
+    .dim-row { display: grid; grid-template-columns: 92px 1fr 115px; align-items: center; gap: 10px; margin: 13px 0; }
+    .dim-name { font-weight: 700; }
+    .dim-bar-box { height: 10px; background: var(--paper-deep); }
+    .dim-bar { height: 100%; background: var(--slate); }
+    .dim-bar.d2 { background: var(--ochre); }
+    .dim-bar.d3 { background: var(--sage); }
+    .dim-comment { color: var(--muted); font-size: 11px; }
+    .footer { padding-top: 24px; text-align: center; }
+    .seal { display: inline-grid; place-items: center; width: 64px; height: 64px; color: var(--wine); border: 2px solid var(--wine); border-radius: 50%; font: 700 12px var(--title-font); transform: rotate(-8deg); }
+    .footer-line { margin-top: 12px; color: var(--slate-deep); font-size: 12px; }
+    .footer-meta { margin-top: 7px; color: var(--muted); font-size: 9px; }
+    .avoid-break { break-inside: avoid; page-break-inside: avoid; }
+    @media (max-width: 780px) { body { padding: 0; } .report { width: 100%; min-width: 0; padding: 18px 20px 25px; } .masthead { min-height: 285px; padding: 20px; } .masthead h1 { font-size: 35px; } .mast-art { right: -20px; width: 235px; height: 270px; opacity: .82; } .mast-meta { max-width: 300px; } .summary { grid-template-columns: 1fr 1fr; } .summary-item:nth-child(2) { border-right: 0; } .summary-item:nth-child(3) { grid-column: 1 / -1; border-top: 1px solid var(--line); padding-left: 0; } .title-grid { grid-template-columns: 1fr 1fr; } .dim-row { grid-template-columns: 78px 1fr; } .dim-comment { grid-column: 2; } }
+    @media (max-width: 480px) { .masthead h1 { font-size: 30px; letter-spacing: 2px; } .mast-art { right: -55px; opacity: .62; } .module-head { grid-template-columns: 28px 1fr; } .badge { grid-column: 2; justify-self: start; } .topic-item, .q-flex { grid-template-columns: 58px 1fr; gap: 10px; } .title-grid { grid-template-columns: 1fr; } .chart-wrap { padding: 12px 8px; } .chart-bars, .chart-labels { gap: 2px; } .chart-bar { max-width: 12px; } .chart-caption { display: block; line-height: 1.8; } }
+  </style>
+</head>
+<body>
+  <main class="report">
+    <header class="masthead">
+      <div class="eyebrow">FOUNDATION ARCHIVE / STORM REPORT</div>
+      <h1>暴雨观测档案</h1>
+      <div class="mast-subtitle">REVERSE: 1999 · DAILY GROUP ANALYSIS</div>
+      <p class="mast-note">记录今日群聊留下的回声。时间会回溯，观测不会。</p>
+      <div class="mast-meta"><span>DATE / {{ current_date }}</span><span>RECORDED / {{ current_datetime }}</span></div>
+      <div class="archive-seal">TIME<br>KEEPER<br>1999</div>
+      <div class="mast-art"><img class="mast-char" src="https://re.bluepoch.com/home/img/role/2.png" alt="维尔汀"></div>
+    </header>
+
+    <section class="summary avoid-break">
+      <div class="summary-item"><span class="summary-number">{{ message_count }}</span><span class="summary-label">消息总数</span><span class="summary-note">MESSAGES / OBSERVED</span></div>
+      <div class="summary-item"><span class="summary-number">{{ participant_count }}</span><span class="summary-label">参与人数</span><span class="summary-note">ACTIVE MEMBERS</span></div>
+      <div class="summary-item"><span class="summary-number">{{ most_active_period }}</span><span class="summary-label">峰值时段</span><span class="summary-note">ACTIVITY WINDOW</span></div>
+    </section>
+
+    <section class="section avoid-break">{{ hourly_chart_html|safe }}</section>
+    <section class="section">{{ topics_html|safe }}</section>
+    <section class="section">{{ titles_html|safe }}</section>
+    <section class="section">{{ quotes_html|safe }}</section>
+    {% if chat_quality_html %}<section class="section">{{ chat_quality_html|safe }}</section>{% endif %}
+
+    <footer class="footer">
+      <div class="seal">暴雨<br>录</div>
+      <div class="footer-line">ARCHIVE SEALED · 司辰观测完毕</div>
+      <div class="footer-meta">CHARACTERS {{ total_characters }} / STICKERS {{ emoji_count }} / TOKEN {{ total_tokens }} / PROMPT {{ prompt_tokens }} / COMPLETION {{ completion_tokens }}</div>
+    </footer>
+  </main>
+</body>
+</html>

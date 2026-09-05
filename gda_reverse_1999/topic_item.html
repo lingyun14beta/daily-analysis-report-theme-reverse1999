@@ -1,1 +1,18 @@
-{% if topics %}<div class="module-head"><div class="module-no">贰</div><div class="module-title">今日话题<span class="en">CONVERSATIONS THAT OUTRAN THE RAIN</span></div><div class="badge">TOPIC BOARD</div></div>{% for topic in topics %}<div class="topic-item avoid-break"><div class="topic-no"><b>{{ "%02d"|format(topic.index) }}</b><span>TOPIC</span></div><div><div class="topic-title">{{ topic.topic.topic }}</div><div class="topic-meta">PRESENT / {{ topic.contributors }}</div><div class="topic-detail">{{ topic.detail|safe }}</div></div></div>{% endfor %}{% endif %}
+{% if topics %}
+<div class="module-head">
+  <div class="module-no">贰</div>
+  <div class="module-title">时代回声<span class="en">ECHOES THROUGH THE STORM</span></div>
+  <div class="badge">TOPIC LOG</div>
+</div>
+<p class="archive-intro">今日被记录的讨论，按出现顺序归档。</p>
+{% for topic in topics %}
+<article class="topic-item avoid-break">
+  <div class="topic-no"><b>{{ "%02d"|format(topic.index) }}</b>RECORD</div>
+  <div>
+    <div class="topic-title">{{ topic.topic.topic }}</div>
+    <div class="topic-meta">PRESENT / {{ topic.contributors }}</div>
+    <div class="topic-detail">{{ topic.detail|safe }}</div>
+  </div>
+</article>
+{% endfor %}
+{% endif %}

@@ -125,8 +125,17 @@ for name, out in {
     "html_template.html": None,
 }.items():
     html = rt_env.get_template(name).render(**main_ctx)
-    assert "群聊日常分析" in html and "今日话题" in html and "金句" in html
+    assert "暴雨观测档案" in html and "时代回声" in html and "时间回响" in html
+    assert "20:00-22:00" in html and "ARCHIVE SEALED" in html
     print(f"[render OK] {name} ({len(html)} bytes)")
+
+# 隐私回归：模板负责的标题名和金句发送者应使用脱敏文案。
+private_ctx = {**main_ctx, "hide_user_names": True}
+private_titles = rt_env.get_template("user_title_item.html").render(**private_ctx, **sub_ctx)
+private_quotes = rt_env.get_template("quote_item.html").render(**private_ctx, **sub_ctx)
+assert "神秘群友" in private_titles and "小明" not in private_titles
+assert "神秘群友" in private_quotes and "小红" not in private_quotes and "阿伟" not in private_quotes
+print("[privacy OK] title and quote names are hidden")
 
 if not PLUGIN_ROOT or not (Path(PLUGIN_ROOT) / "src").is_dir():
     print(
