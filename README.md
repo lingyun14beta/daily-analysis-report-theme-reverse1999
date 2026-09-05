@@ -3,8 +3,8 @@
 本仓库是 [astrbot_plugin_qq_group_daily_analysis](https://github.com/SXP-Simon/astrbot_plugin_qq_group_daily_analysis)
 的 **报告视觉模板仓库**，可以作为你自己的模板仓库的起点。
 
-内置模板：**`gda_reverse_1999`（暴雨档案馆 Reverse: 1999）** —— 重返未来1999 风格暗夜档案馆，
-深夜墨绿底 × 鎏金细线 × 印泥朱红，倒置时钟与档案印章，24h 活跃曲线图为平滑鎏金面积图。
+内置模板：**`gda_reverse_1999`（暴雨档案馆 Reverse: 1999）** —— 重返未来1999 风格羊皮纸手账，
+米白纸底 × 1852 宇宙志镶框古图 × 墨绿鎏金圆角卡片，渐变柱图与朱红峰值，观星者纪念章页脚。
 
 > 预览：
 > ![暴雨档案馆预览图](assets/gda_reverse_1999-demo-thumb.jpg)
@@ -57,21 +57,22 @@ daily-analysis-report-theme/
 
 ```css
 :root {
-    --bg-deep: #0a100f;      /* 页面底色（深夜墨黑） */
-    --bg-panel: #101b18;     /* 深色面板（画像卡） */
-    --bg-panel-2: #14211d;   /* 面板渐变的亮端 */
-    --gold: #cfa85a;         /* 主色（鎏金） */
-    --gold-light: #eed9a4;   /* 浅金（标题/曲线高光） */
-    --gold-deep: #8a6d2f;    /* 深金（次要强调） */
-    --paper: #f5ecd6;        /* 纸色（预留浅色卡面） */
-    --paper-soft: #eadcbb;   /* 纸色加深 */
-    --ink: #e9e3d2;          /* 正文色（暖白） */
-    --ink-soft: #a3a892;     /* 次要文字 */
-    --ink-faint: #6d7566;    /* 弱化文字（拉丁副标题） */
-    --rust: #b3402f;         /* 印泥朱红（序号/印章/批注） */
-    --line: rgba(207,168,90,0.16);   /* 细分隔线 */
-    --line-strong: rgba(207,168,90,0.34); /* 强调描边 */
-    --radius: 6px;           /* 卡片圆角 */
+    --paper: #f4ecda;        /* 页面底色（米白羊皮纸） */
+    --paper-2: #eee3c8;      /* 纸色加深 */
+    --card: #fffdf6;         /* 卡片白 */
+    --card-2: #faf3e3;       /* 卡片渐变暖端 */
+    --ink: #3b372c;          /* 正文墨褐色 */
+    --ink-soft: #8a8168;     /* 次要文字 */
+    --ink-faint: #b5ab8e;    /* 弱化文字（拉丁副标题） */
+    --gold: #b98a3c;         /* 鎏金 */
+    --gold-light: #e0c48b;   /* 浅金（柱图高光） */
+    --gold-deep: #8a6428;    /* 深金（柱图暗端/注释） */
+    --green: #2d4a42;        /* 墨绿（称号标签/头像描边用） */
+    --green-deep: #1f3530;   /* 深墨绿（标题/数据） */
+    --rust: #b3402f;         /* 印泥朱红（序号/印章/峰值） */
+    --line: rgba(146,121,74,0.20);   /* 细分隔线 */
+    --line-strong: rgba(146,121,74,0.38); /* 强调描边 */
+    --radius: 14px;          /* 卡片圆角 */
 }
 ```
 
@@ -152,15 +153,17 @@ python generate_preview.py [模板名]     # 缺省为 gda_reverse_1999
 
 ## 装饰图来源（公共领域，Wikimedia 直链）
 
-模板报头与全页水印直接引用 Wikimedia Commons 上两张**公共领域**古版画（绝对 URL，
-CDN 无防盗链、无需署名，符合「模板内引用图片」规范）：
+模板使用三张 Wikimedia Commons 上**公共领域**古版画（绝对 URL，CDN 无防盗链、无需署名，
+符合「模板内引用图片」规范）：
 
-- **Flammarion 木刻版画**（1888，佚名，PD，维基百科特色图片）—— 报头背后的鎏金星图：
-  `https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/FlammarionWoodcut.jpg/1280px-FlammarionWoodcut.jpg`
-- **Vuillemin 1852 宇宙志图**（A. Vuillemin，PD）—— 全页古籍水印：
+- **Vuillemin 1852 宇宙志图**（PD）—— 报头主视觉：镶框古图相册（`hero-art`）：
   `https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/1852_Vuillemin_Astronomical_and_Cosmographical_Chart_-_Geographicus_-_Cosmographique-vuillemin-1852.jpg/1280px-1852_Vuillemin_Astronomical_and_Cosmographical_Chart_-_Geographicus_-_Cosmographique-vuillemin-1852.jpg`
+- **Flammarion 木刻版画**（1888，佚名，PD，维基百科特色图片）—— 页脚纪念章（`footer-art`）：
+  `https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/FlammarionWoodcut.jpg/1280px-FlammarionWoodcut.jpg`
+- **Doppelmayr 1730 孔雀座星图**（PD）—— 页脚第二枚小纪念章（`footer-art2`）：
+  `https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Johan_Doppelmayr%27s_celestial_chart_of_Pavo_and_Indus_%28cropped%29.jpg/1280px-Johan_Doppelmayr%27s_celestial_chart_of_Pavo_and_Indus_%28cropped%29.jpg`
 
-两份装饰图在模板里通过 `background-image` 引用（失败时优雅降级、不破坏版面）。
+三张图在模板里通过 `background-image` 引用（失败时优雅降级、不破坏版面）。
 `assets/<模板名>/art/` 下保存了本地副本：`generate_preview.py` 渲染预览图时会把直链
 替换为本地文件 `file://` 路径，避免预览机 IP 被 Wikimedia 限流（429）导致截图缺图；
 **模板文件本身始终引用直链，不依赖本地副本**。

@@ -161,6 +161,9 @@ _ART_URLS = {
      "1852_Vuillemin_Astronomical_and_Cosmographical_Chart_-_Geographicus_-_Cosmographique-vuillemin-1852.jpg/"
      "1280px-1852_Vuillemin_Astronomical_and_Cosmographical_Chart_-_Geographicus_-_Cosmographique-vuillemin-1852.jpg"):
         _ART_DIR / "Vuillemin-1852-1280px.jpg",
+    ("https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Johan_Doppelmayr%27s_celestial_chart_of_Pavo_and_Indus_"
+     "%28cropped%29.jpg/1280px-Johan_Doppelmayr%27s_celestial_chart_of_Pavo_and_Indus_%28cropped%29.jpg"):
+        _ART_DIR / "Doppelmayr-Pavo-1280px.jpg",
 }
 for url, local in _ART_URLS.items():
     if local.is_file() and url in preview_html:

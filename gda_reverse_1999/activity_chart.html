@@ -1,80 +1,38 @@
 {% if chart_data %}
-{% set n = chart_data | length %}
-{% set w = 660.0 %}
-{% set base = 196.0 %}
-{% set top = 30.0 %}
-{% set chart_h = base - top %}
-{% set step_x = (w / (n - 1)) if n > 1 else w %}
-{% set ns = namespace(line="", area="", first_x=0.0, prev_x=0.0, prev_y=base, max_p=-1.0, max_i=0, max_c=0, peak_y=base) %}
+{% set ns = namespace(max_p=-1.0, max_i=0, max_c=0) %}
 {% for item in chart_data %}
 {% set p = item.percentage | float %}
-{% if p < 0 %}{% set p = 0 %}{% elif p > 100 %}{% set p = 100 %}{% endif %}
-{% set x = (loop.index0 * step_x) | round(2) %}
-{% set y = (base - p * chart_h / 100.0) | round(2) %}
-{% if loop.first %}
-{% set ns.line = "M" ~ x ~ " " ~ y %}
-{% set ns.first_x = x %}
-{% else %}
-{% set xm = ((x + ns.prev_x) / 2) | round(2) %}
-{% set ns.line = ns.line ~ " C" ~ xm ~ " " ~ ns.prev_y ~ " " ~ xm ~ " " ~ y ~ " " ~ x ~ " " ~ y %}
-{% endif %}
-{% set ns.prev_x = x %}
-{% set ns.prev_y = y %}
 {% if p > ns.max_p %}
 {% set ns.max_p = p %}
 {% set ns.max_i = loop.index0 %}
 {% set ns.max_c = item.count | int %}
-{% set ns.peak_y = y %}
 {% endif %}
 {% endfor %}
-{% set ns.area = ns.line ~ " L" ~ ns.prev_x ~ " " ~ base ~ " L" ~ ns.first_x ~ " " ~ base ~ " Z" %}
-{% set peak_x = (ns.max_i * step_x) | round(2) %}
-{% set peak_label_x = peak_x %}
-{% if peak_label_x < 46 %}{% set peak_label_x = 46 %}{% elif peak_label_x > 614 %}{% set peak_label_x = 614 %}{% endif %}
 <div class="chart-wrap avoid-break">
-    <svg class="chart-svg" viewBox="0 0 660 236" role="img" aria-label="24 小时活跃分布">
-        <defs>
-            <linearGradient id="gda_area" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#cfa85a" stop-opacity="0.32" />
-                <stop offset="60%" stop-color="#cfa85a" stop-opacity="0.07" />
-                <stop offset="100%" stop-color="#cfa85a" stop-opacity="0" />
-            </linearGradient>
-            <linearGradient id="gda_stroke" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stop-color="#8a6d2f" />
-                <stop offset="50%" stop-color="#eed9a4" />
-                <stop offset="100%" stop-color="#8a6d2f" />
-            </linearGradient>
-        </defs>
-
-        {# 横向网格 #}
-        {% for gy in [196, 157, 118, 79, 40] %}
-        <line class="g-grid" x1="0" y1="{{ gy }}" x2="660" y2="{{ gy }}" />
-        {% endfor %}
-
-        {# 面积填充 + 曲线 #}
-        <path d="{{ ns.area }}" fill="url(#gda_area)" />
-        <path d="{{ ns.line }}" fill="none" stroke="url(#gda_stroke)" stroke-width="2.2"
-            stroke-linecap="round" stroke-linejoin="round" />
-
-        {# 峰值标记 #}
-        <line class="g-peak-line" x1="{{ peak_x }}" y1="{{ top }}" x2="{{ peak_x }}" y2="{{ base }}" />
-        <circle class="g-peak-dot" cx="{{ peak_x }}" cy="{{ ns.peak_y }}" r="4.5" />
-        <text class="g-peak-label" x="{{ peak_label_x }}" y="{{ (ns.peak_y - 11) | round(2) }}">峰值 {{ "%02d" | format(chart_data[ns.max_i].hour) }}:00</text>
-
-        {# X 轴刻度与标签 #}
+    <div class="chart-col">
+        <div class="chart-bars">
+            {% for item in chart_data %}
+            {% set p = item.percentage | float %}
+            {% if p < 0 %}{% set p = 0 %}{% elif p > 100 %}{% set p = 100 %}{% endif %}
+            <div class="chart-item">
+                {% if item.count > 0 and loop.index0 == ns.max_i %}
+                <div class="chart-val peak">{{ item.count }}</div>
+                {% endif %}
+                <div class="chart-bar{% if loop.index0 == ns.max_i %} peak{% endif %}"
+                    style="height: {{ (p * 1.64) | round(1) }}px;"></div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <hr class="chart-hr">
+    <div class="chart-labels">
         {% for item in chart_data %}
-        {% set tx = (loop.index0 * step_x) | round(2) %}
-        {% set tx_label = tx %}
-        {% if tx_label < 16 %}{% set tx_label = 16 %}{% elif tx_label > 644 %}{% set tx_label = 644 %}{% endif %}
-        <line class="{% if loop.index0 == 0 or loop.last %}g-axis{% else %}g-tick{% endif %}" x1="{{ tx }}" y1="{{ base }}" x2="{{ tx }}" y2="{{ 203 if loop.index0 == 0 or loop.last else 199 }}" />
-        {% if loop.index0 % 2 == 0 %}
-        <text class="g-hour" x="{{ tx_label }}" y="224">{{ "%02d" | format(item.hour) }}</text>
-        {% endif %}
+        <span>{% if loop.index0 % 2 == 0 %}{{ "%02d" | format(item.hour) }}{% endif %}</span>
         {% endfor %}
-    </svg>
+    </div>
     <div class="chart-caption">
         <span>CURVE OF THE DAY &middot; 昼夜脉动</span>
-        <span>一天中最高的海拔：<b>{{ ns.max_c }} 条</b></span>
+        <span>最高海拔 <b>{{ ns.max_c }} 条</b> · 峰值 {{ "%02d" | format(chart_data[ns.max_i].hour) }}:00</span>
     </div>
 </div>
 {% endif %}
