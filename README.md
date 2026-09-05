@@ -162,6 +162,16 @@ python generate_preview.py [模板名]     # 缺省为 gda_reverse_1999
   `https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/FlammarionWoodcut.jpg/1280px-FlammarionWoodcut.jpg`
 - **Doppelmayr 1730 孔雀座星图**（PD）—— 页脚第二枚小纪念章（`footer-art2`）：
   `https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Johan_Doppelmayr%27s_celestial_chart_of_Pavo_and_Indus_%28cropped%29.jpg/1280px-Johan_Doppelmayr%27s_celestial_chart_of_Pavo_and_Indus_%28cropped%29.jpg`
+- **持浑天仪的天文学家**（1584 版画，美国国会图书馆藏，PD）—— 头图主角「司辰」：
+  贴在镶框古图右缘、配对话气泡（`hero-character` / `hero-bubble`）：
+  `https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Astronomer_holding_instrument_LCCN2006691905.jpg/960px-Astronomer_holding_instrument_LCCN2006691905.jpg`
+- **丢勒《天文学家》木刻**（Albrecht Dürer，PD）—— 页脚右下角探底大立绘（`deco-char`）：
+  `https://upload.wikimedia.org/wikipedia/commons/3/3b/Durer_astronomer.jpg`
+
+**人物用法**（对齐内置 ATRI / BlueArchive 模板的手法）：主角立绘以 `mix-blend-mode: multiply`
+直接「印」在羊皮纸卡上（版画白底与纸底融合，无需抠图），配 `filter: grayscale+sepia` 统一色调；
+对话气泡用纯 CSS 小尾巴指向人物；页脚人物绝对定位右下、底部探出页边（`bottom: -6px`）；
+群友卡可选 `title.profile_image`（插件注入）做右下角 12% 透明淡印（`.t-profile`）。
 
 三张图在模板里通过 `background-image` 引用（失败时优雅降级、不破坏版面）。
 `assets/<模板名>/art/` 下保存了本地副本：`generate_preview.py` 渲染预览图时会把直链

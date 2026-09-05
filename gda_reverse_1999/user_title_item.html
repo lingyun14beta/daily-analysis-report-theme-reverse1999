@@ -23,6 +23,9 @@
             {% endif %}
         </div>
         <div class="t-reason">{{ title.reason }}</div>
+        {% if title.get('profile_image') %}
+        <img src="{{ title.get('profile_image') }}" alt="" class="t-profile">
+        {% endif %}
     </div>
     {% endfor %}
 </div>

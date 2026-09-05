@@ -164,6 +164,11 @@ _ART_URLS = {
     ("https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Johan_Doppelmayr%27s_celestial_chart_of_Pavo_and_Indus_"
      "%28cropped%29.jpg/1280px-Johan_Doppelmayr%27s_celestial_chart_of_Pavo_and_Indus_%28cropped%29.jpg"):
         _ART_DIR / "Doppelmayr-Pavo-1280px.jpg",
+    ("https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/"
+     "Astronomer_holding_instrument_LCCN2006691905.jpg/960px-Astronomer_holding_instrument_LCCN2006691905.jpg"):
+        _ART_DIR / "Astronomer-1584-960px.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/3/3b/Durer_astronomer.jpg":
+        _ART_DIR / "Durer-Astronomer.jpg",
 }
 for url, local in _ART_URLS.items():
     if local.is_file() and url in preview_html:
