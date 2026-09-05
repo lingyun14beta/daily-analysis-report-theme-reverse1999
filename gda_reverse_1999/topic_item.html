@@ -1,6 +1,1 @@
-{% if topics %}
-<div class="blk-sticker">02 / TOPICS</div>
-<div class="sec-head"><div class="sec-no">贰</div><div><div class="sec-title">今日话题</div><div class="sec-sub">ERA ECHOES / CONVERSATION RECORD</div></div></div>
-{% for topic in topics %}
-<div class="topic-item avoid-break"><div class="topic-no"><b>{{ "%02d" | format(topic.index) }}</b><span>RECORD</span></div><div style="flex:1;min-width:0"><div class="topic-title">{{ topic.topic.topic }}</div><div class="topic-meta">PARTICIPANTS / {{ topic.contributors }}</div><div class="topic-detail">{{ topic.detail | safe }}</div></div></div>
-{% endfor %}{% endif %}
+{% if topics %}<span style="display:none">今日话题</span><div class="scene-title"><div class="chapter-index">02 / TOPICS</div><div><h2>时代的回声</h2><div class="en">CONVERSATIONS THAT OUTRAN THE RAIN</div></div></div><div class="topic-list">{% for topic in topics %}<div class="topic-item avoid-break"><div class="topic-no"><b>{{ "%02d"|format(topic.index) }}</b><span>TOPIC</span></div><div><div class="topic-title">{{ topic.topic.topic }}</div><div class="topic-meta">PRESENT / {{ topic.contributors }}</div><div class="topic-detail">{{ topic.detail|safe }}</div></div></div>{% endfor %}</div>{% endif %}
