@@ -1,24 +1,6 @@
 {% if topics %}
-<div class="blk-sticker">贰 &nbsp;TOPICS</div>
-<div class="sec-head">
-    <div class="sec-no">贰</div>
-    <div>
-        <div class="sec-title">今日话题<img class="sec-emoji" src="https://re.bluepoch.com/home/img/role/1t.png" alt=""></div>
-        <div class="sec-sub">ECHOES OF THE ERA &middot; 时代的回声</div>
-    </div>
-</div>
+<div class="blk-sticker">02 / TOPICS</div>
+<div class="sec-head"><div class="sec-no">贰</div><div><div class="sec-title">今日话题</div><div class="sec-sub">ERA ECHOES / CONVERSATION RECORD</div></div></div>
 {% for topic in topics %}
-<div class="topic-item avoid-break">
-    <div class="topic-no">
-        <b>{{ "%02d" | format(topic.index) }}</b>
-        <span>NO.&nbsp;{{ "%02d" | format(topic.index) }}</span>
-    </div>
-    <div style="flex: 1; min-width: 0;">
-        <div class="topic-title">{{ topic.topic.topic }}</div>
-        <div class="topic-meta">在场者 · {{ topic.contributors }}</div>
-        <div class="topic-detail">{{ topic.detail | safe }}</div>
-    </div>
-</div>
-{% endfor %}
-{% endif %}
-
+<div class="topic-item avoid-break"><div class="topic-no"><b>{{ "%02d" | format(topic.index) }}</b><span>RECORD</span></div><div style="flex:1;min-width:0"><div class="topic-title">{{ topic.topic.topic }}</div><div class="topic-meta">PARTICIPANTS / {{ topic.contributors }}</div><div class="topic-detail">{{ topic.detail | safe }}</div></div></div>
+{% endfor %}{% endif %}

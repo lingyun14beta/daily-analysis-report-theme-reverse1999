@@ -1,32 +1,4 @@
 {% if titles %}
-<div class="blk-sticker">叁 &nbsp;REGISTRY</div>
-<div class="sec-head">
-    <div class="sec-no">叁</div>
-    <div>
-        <div class="sec-title">群友画像<img class="sec-emoji" src="https://re.bluepoch.com/home/img/role/1t.png" alt=""></div>
-        <div class="sec-sub">ARCANIST REGISTRY &middot; 本群登记在册</div>
-    </div>
-</div>
-<div class="title-grid">
-    {% for title in titles %}
-    <div class="title-card avoid-break">
-        <div class="t-avatar">
-            {% if title.avatar_data %}
-            <img src="{{ title.avatar_data }}" alt="头像">
-            {% endif %}
-        </div>
-        <div class="t-name">{{ '神秘群友' if hide_user_names else title.name }}</div>
-        <div class="t-badges">
-            <span class="t-title-tag">{{ title.title }}</span>
-            {% if title.profile_display or title.mbti %}
-            <span class="t-mbti">{{ title.profile_display or title.mbti }}</span>
-            {% endif %}
-        </div>
-        <div class="t-reason">{{ title.reason }}</div>
-        {% if title.get('profile_image') %}
-        <img src="{{ title.get('profile_image') }}" alt="" class="t-profile">
-        {% endif %}
-    </div>
-    {% endfor %}
-</div>
-{% endif %}
+<div class="blk-sticker">03 / REGISTRY</div>
+<div class="sec-head"><div class="sec-no">叁</div><div><div class="sec-title">群友画像</div><div class="sec-sub">ARCANIST REGISTRY / FILED TODAY</div></div></div>
+<div class="title-grid">{% for title in titles %}<div class="title-card avoid-break"><div class="t-avatar">{% if title.avatar_data %}<img src="{{ title.avatar_data }}" alt="头像">{% endif %}</div><div class="t-name">{{ '神秘群友' if hide_user_names else title.name }}</div><div class="t-badges"><span class="t-title-tag">{{ title.title }}</span>{% if title.profile_display or title.mbti %}<span class="t-mbti">{{ title.profile_display or title.mbti }}</span>{% endif %}</div><div class="t-reason">{{ title.reason }}</div>{% if title.get('profile_image') %}<img src="{{ title.get('profile_image') }}" alt="" class="t-profile">{% endif %}</div>{% endfor %}</div>{% endif %}
