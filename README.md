@@ -1,198 +1,97 @@
-# 群聊日常分析 · 报告模板仓库（暴雨档案馆 Reverse: 1999）
+# 群聊日常分析 · 报告模板仓库（暴雨观测档案 Reverse: 1999）
 
-本仓库是 [astrbot_plugin_qq_group_daily_analysis](https://github.com/SXP-Simon/astrbot_plugin_qq_group_daily_analysis)
-的 **报告视觉模板仓库**，可以作为你自己的模板仓库的起点。
+本仓库是 [astrbot_plugin_qq_group_daily_analysis](https://github.com/SXP-Simon/astrbot_plugin_qq_group_daily_analysis) 的报告视觉模板仓库，可以作为自定义模板仓库的起点。
 
-内置模板：**`gda_reverse_1999`（暴雨档案馆 Reverse: 1999）** —— 重返未来1999 主题羊皮纸手账，
-米白纸底 × 1852 宇宙志镶框古图 × 全页雨幕 × 逆转时钟徽章（1999.12.31 23:59），
-「司辰」观测者立绘 + 朵勒木刻探底，渐变柱图与朱红峰值，暴雨录印章页脚。
+内置模板：**`gda_reverse_1999`（暴雨观测档案 Reverse: 1999）**。以《重返未来：1999》的暴雨与司辰观测为视觉原点，使用雾灰档案纸、深墨绿、旧金与暴雨红构成克制的长图报告。维尔汀官方立绘承担首屏主视觉，时间裂隙柱图、话题记录、神秘学家登记卡、摘录金句与观测结论依次归档。
 
 > 预览：
-> ![暴雨档案馆预览图](assets/gda_reverse_1999-demo-thumb.jpg)
+> ![暴雨观测档案预览图](assets/gda_reverse_1999-demo-thumb.jpg)
 >
 > 完整长图见 [assets/gda_reverse_1999-demo.jpg](assets/gda_reverse_1999-demo.jpg)。
 
-> 📌 **图片文件说明**（三张图用途不同，别混淆）：
-> - `assets/gda_reverse_1999-demo-thumb.jpg` —— **本 README 展示用的缩略图**（宽 420 以内），
->   用于仓库首页快速预览效果；不参与模板运行，也不打包进 zip 之外的任何插件逻辑。
-> - `assets/gda_reverse_1999-demo.jpg` —— **完整长图**，README 以链接附上，供点开看全部细节。
-> - `gda_reverse_1999/preview.jpg` —— **随模板打包的预览图**：用户安装本模板后，
->   QQ `/查看模板` 与 WebUI 画廊显示的就是这张图（区别于上面两张仅作仓库展示）。
+> 图片文件说明：
+> - `assets/gda_reverse_1999-demo-thumb.jpg`：README 展示缩略图。
+> - `assets/gda_reverse_1999-demo.jpg`：完整长图预览。
+> - `gda_reverse_1999/preview.jpg`：随模板打包，供 QQ `/查看模板` 与 WebUI 画廊显示。
 >
 > 三者均由 `generate_preview.py` 一次生成。
 
-## 一键安装（推荐）
+## 一键安装
 
-在插件 Web 控制台 → 配置页 → 模板选择器旁「安装模板」→ GitHub 链接页签：
+在插件 Web 控制台的配置页，点击模板选择器旁的“安装模板”，在 GitHub 链接页签填写：
 
 ```
 https://github.com/lingyun14beta/daily-analysis-report-theme-reverse1999
 ```
 
-插件会自动下载源码、识别 `gda_reverse_1999/` 模板目录并安装，**无需重启机器人**。
-也可以在本仓库页面点 `Code ▾ → Download ZIP`，然后在「安装模板 → 上传 zip」直接上传。
-
-> 安装成功后模板会出现在「断点续跑」「免 Token 切换主题重绘」下拉中；
-> 卸载请用同一入口旁的「卸载模板」（内置模板不可卸载）。
+插件会自动下载源码、识别 `gda_reverse_1999/` 模板目录并安装，无需重启机器人。也可以下载仓库 ZIP 后，在“安装模板 → 上传 zip”中直接上传。
 
 ## 目录结构
 
 ```
 daily-analysis-report-theme/
-├── README.md                # 本说明
-└── gda_reverse_1999/        # 模板根目录（zip 打包时打包这一层）
-    ├── image_template.html  # 长图海报主骨架
-    ├── html_template.html   # 独立网页主骨架
-    ├── topic_item.html      # 话题列表模块
-    ├── user_title_item.html # 群友称号与画像模块
-    ├── quote_item.html      # 金句与锐评模块
-    ├── activity_chart.html  # 24h 活跃轨迹模块
-    ├── chat_quality_item.html # 群聊质量锐评模块
-    ├── template.json        # 模板显示名 {"name": "暴雨档案馆 (Reverse: 1999)"}
-    └── preview.jpg          # 随包预览图
+├── README.md
+└── gda_reverse_1999/
+    ├── image_template.html      # 长图报告主骨架
+    ├── html_template.html       # 独立网页主骨架
+    ├── topic_item.html          # 话题记录
+    ├── user_title_item.html     # 神秘学家登记卡
+    ├── quote_item.html          # 金句摘录
+    ├── activity_chart.html      # 时间裂隙活跃图
+    ├── chat_quality_item.html   # 观测结论
+    ├── template.json            # 模板展示元信息
+    └── preview.jpg              # 随包预览图
 ```
 
-## 快速自定义
+## 视觉设计
 
-所有视觉都由 `gda_reverse_1999/image_template.html` 头部 `:root { ... }` 的 CSS 变量控制：
+模板的视觉变量位于 `gda_reverse_1999/image_template.html` 顶部：
 
 ```css
 :root {
-    --paper: #f4ecda;        /* 页面底色（米白羊皮纸） */
-    --paper-2: #eee3c8;      /* 纸色加深 */
-    --card: #fffdf6;         /* 卡片白 */
-    --card-2: #faf3e3;       /* 卡片渐变暖端 */
-    --ink: #3b372c;          /* 正文墨褐色 */
-    --ink-soft: #8a8168;     /* 次要文字 */
-    --ink-faint: #b5ab8e;    /* 弱化文字（拉丁副标题） */
-    --gold: #b98a3c;         /* 鎏金 */
-    --gold-light: #e0c48b;   /* 浅金（柱图高光） */
-    --gold-deep: #8a6428;    /* 深金（柱图暗端/注释） */
-    --green: #2d4a42;        /* 墨绿（称号标签/头像描边用） */
-    --green-deep: #1f3530;   /* 深墨绿（标题/数据） */
-    --rust: #b3402f;         /* 印泥朱红（序号/印章/峰值） */
-    --line: rgba(146,121,74,0.20);   /* 细分隔线 */
-    --line-strong: rgba(146,121,74,0.38); /* 强调描边 */
-    --radius: 14px;          /* 卡片圆角 */
+    --mist: #e8ece8;       /* 雾灰背景 */
+    --paper: #f7f6f0;      /* 档案纸面 */
+    --paper-deep: #edede4; /* 摘录与数据底色 */
+    --ink: #243936;        /* 深墨绿正文 */
+    --muted: #71817d;      /* 次级文字 */
+    --gold: #ae8950;       /* 旧金索引和时间线 */
+    --red: #ad483e;        /* 暴雨红：峰值与警示 */
+    --line: #c9d0c9;       /* 档案分隔线 */
 }
 ```
 
-改完颜色即可得到自己的风格；改版式请直接修改对应 HTML 文件。
-拉丁文装饰（副标题/图表注记）使用变量 `--font-latin`（默认 Cormorant Garamond 衬线斜体），
-可整体替换为更衬主题的西文字体。
+页面由以下节奏构成：
 
-## 打包规范速查（安装器强制校验）
-
-| 项 | 要求 |
-| --- | --- |
-| 单一模板 | 一个 zip 只含一个模板，多个模板目录会被拒绝 |
-| 主文件 | 目录内必须有 `image_template.html` 或 `html_template.html` |
-| 根目录 | 允许外层套一层目录（`repo-main` 形式自动剥离） |
-| 大小 | 解压后 ≤ 64MB、单文件 ≤ 20MB、成员 ≤ 300 |
-| 命名 | 建议小写英文蛇形（如 `gda_xxx`）、≤ 50 字符、无空格与特殊字符；与内置模板重名会被拒绝 |
-| 显示名 | 可选 `template.json` 放在模板根目录：`{"name": "中文名", "desc": "说明", "tag": "复古金箔", "tag_color": "gold"}`（desc 显示在 WebUI 下拉/卸载弹窗，tag/tag_color 为下拉中的风格标签；字段均可选，仅 name 也可） |
-| 预览图 | 可选 `preview.jpg/png` 或 `demo.jpg/png` 放在模板目录内：随 zip 一起打包安装后，QQ `/查看模板` 即可显示该预览图 |
-| 模板内引用图片 | 只能用**绝对 URL（公开图库链接）**或**内联 data URI / `<svg>`**——报告 HTML 是字符串交给远端 T2I 渲染服务，**相对路径（如 `assets/bg.png`）渲染时必然 404**；预览图（preview.jpg）除外。小图标建议 base64/内联 SVG，大装饰图建议放本仓库 `assets/<模板名>/` 后用 jsDelivr 绝对链接（参考内置 HatsuneMiku 模板的做法） |
-| 多余的脚本/文件 | 模板目录内可放置任意文件（安装器原样保留、运行时会忽略），但脚本类文件请留在仓库根，避免徒增 zip 体积 |
-
-> 完整 `template.json` 示例（放模板根目录，与 `image_template.html` 同级）：
->
-> ```json
-> {
->   "name": "暴雨档案馆 (Reverse: 1999)",
->   "desc": "重返未来1999 暗夜档案馆：深夜墨绿 × 鎏金细线 × 印泥朱红，司辰的群聊观测档案",
->   "tag": "暗夜鎏金",
->   "tag_color": "gold"
-> }
-> ```
->
-> 本仓库实际使用： [`gda_reverse_1999/template.json`](gda_reverse_1999/template.json)。
-> 字段均可选（仅 `name` 即可），字符串长度上限 100，仅支持 JSON。
+- 首屏：维尔汀与观测档案编号，呈现日期和记录时刻。
+- 指标：四栏档案索引，压缩展示消息、成员、表情与文字总量。
+- 活跃图：以深绿、旧金、暴雨红标示全天时间裂隙与峰值。
+- 内容：话题、群友、金句、锐评采用统一的档案编号和细线网格。
+- 收束：十四行诗立绘配合维度条，作为每日观测结论。
 
 ## 渲染变量契约
 
-主骨架接收 `topics_html / titles_html / quotes_html / hourly_chart_html /
-chat_quality_html` 五个 HTML 片段，以及 `message_count / participant_count /
-total_characters / emoji_count / most_active_period / current_date / total_tokens`
-等统计字段；子模块分别接收 `topics / titles / quotes / chart_data /
-title+subtitle+dimensions+summary`。
+主骨架接收 `topics_html`、`titles_html`、`quotes_html`、`hourly_chart_html`、`chat_quality_html` 五个 HTML 片段，以及 `message_count`、`participant_count`、`total_characters`、`emoji_count`、`most_active_period`、`current_date`、`current_datetime`、`total_tokens` 等统计字段。
 
-完整变量表与子模块结构详见插件仓库
-[`docs/REPORT_TEMPLATE_GUIDE.md`](https://github.com/SXP-Simon/astrbot_plugin_qq_group_daily_analysis/blob/main/docs/REPORT_TEMPLATE_GUIDE.md#3-渲染变量契约)。
+子模块分别接收 `topics`、`titles`、`quotes`、`chart_data` 与 `title`、`subtitle`、`dimensions`、`summary`。完整变量表见插件仓库的 [REPORT_TEMPLATE_GUIDE](https://github.com/SXP-Simon/astrbot_plugin_qq_group_daily_analysis/blob/main/docs/REPORT_TEMPLATE_GUIDE.md#3-渲染变量契约)。
 
-## 自检脚本
-
-仓库根提供 `verify_demo.py`，在修改模板后运行：
+## 自检与预览
 
 ```bash
-# 校验指定模板（语法 + StrictUndefined 渲染），缺省为 gda_reverse_1999
-python verify_demo.py [模板名]
+# 校验 Jinja2 语法与 StrictUndefined 渲染
+python verify_demo.py gda_reverse_1999
 
-# 完整检查：额外模拟打包 zip 走一遍插件的安装/卸载流程
-python verify_demo.py [模板名] <插件仓库路径>   # 插件路径也可用 PLUGIN_ROOT 环境变量
+# 生成完整图、README 缩略图与随包预览图
+python generate_preview.py gda_reverse_1999
 ```
 
-它会依次：校验全部 HTML 的 Jinja2 语法 → 用 StrictUndefined 实际渲染 7 个模板
-（任何变量缺失/结构错误立即报错）→ 模拟打包 zip 走一遍插件的安装/卸载流程。
+## 图片资源
 
-> 安装/卸载检查依赖插件仓库 `src/` 中的安装器（脚本内置 astrbot mock，可离线运行）。
+人物立绘来自《重返未来：1999》官方网站 `https://re.bluepoch.com` 的公开静态资源，模板运行时使用绝对 URL：
 
-## 预览图生成
+- 维尔汀主视觉：`https://re.bluepoch.com/home/img/role/2.png`
+- 十四行诗观测结论：`https://re.bluepoch.com/home/img/role/3.png`
 
-仓库根提供 `generate_preview.py`，用无头浏览器（Chrome/Edge）渲染模板并生成：
-
-- `assets/<模板名>-demo.jpg`（完整长图）
-- `assets/<模板名>-demo-thumb.jpg`（README 展示缩略图）
-- `<模板名>/preview.jpg`（随模板打包，供 `/查看模板` 显示）
-
-```bash
-python generate_preview.py [模板名]     # 缺省为 gda_reverse_1999
-```
-
-`verify_demo.py` 的 mock 数据在生成脚本中扩展成了更完整的示例内容
-（3 位群友、2 条金句、质量锐评等），修改模板后重跑即可刷新预览图。
-
-## 装饰图来源（公共领域，Wikimedia 直链）
-
-模板使用三张 Wikimedia Commons 上**公共领域**古版画（绝对 URL，CDN 无防盗链、无需署名，
-符合「模板内引用图片」规范）：
-
-- **Vuillemin 1852 宇宙志图**（PD）—— 报头主视觉：镶框古图相册（`hero-art`）：
-  `https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/1852_Vuillemin_Astronomical_and_Cosmographical_Chart_-_Geographicus_-_Cosmographique-vuillemin-1852.jpg/1280px-1852_Vuillemin_Astronomical_and_Cosmographical_Chart_-_Geographicus_-_Cosmographique-vuillemin-1852.jpg`
-- **Flammarion 木刻版画**（1888，佚名，PD，维基百科特色图片）—— 页脚纪念章（`footer-art`）：
-  `https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/FlammarionWoodcut.jpg/1280px-FlammarionWoodcut.jpg`
-- **Doppelmayr 1730 孔雀座星图**（PD）—— 页脚第二枚小纪念章（`footer-art2`）：
-  `https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Johan_Doppelmayr%27s_celestial_chart_of_Pavo_and_Indus_%28cropped%29.jpg/1280px-Johan_Doppelmayr%27s_celestial_chart_of_Pavo_and_Indus_%28cropped%29.jpg`
-
-> **官方人物立绘（官网直链）**：角色立绘与徽记来自《重返未来：1999》官方网站
-> `https://re.bluepoch.com` 的静态资源（角色展示图 `img/role/N.png`，已验证可热链、无防盗链）：
-> - **维尔汀** `img/role/2.png`（头图主角「司辰」，1100+px 透明底立绘）
-> - **十四行诗** `img/role/3.png`（质量锐评卡小立绘）
-> - **绿衣神秘学家** `img/role/4.png`（页脚探底立绘）
-> - **官方蝴蝶徽记** `img/role/1t.png`（各区标题表情贴纸）
-> 以上素材版权归深蓝互动（Bluepoch）所有，本仓库**仅供自用与演示**；如用于商业分发，
-> 请替换为已获得授权的素材。预览时 `generate_preview.py` 会把官网地址
-> 替换为 `assets/<模板名>/art/` 下的本地副本。
-
-**人物用法**（对齐内置 ATRI / BlueArchive 模板的手法）：主角立绘以 `mix-blend-mode: multiply`
-直接「印」在羊皮纸卡上（版画白底与纸底融合，无需抠图），配 `filter: grayscale+sepia` 统一色调；
-对话气泡用纯 CSS 小尾巴指向人物；页脚人物绝对定位右下、底部探出页边（`bottom: -6px`）；
-群友卡可选 `title.profile_image`（插件注入）做右下角 12% 透明淡印（`.t-profile`）。
-
-## 游戏主题还原（重返未来：1999）
-
-- **全页雨幕**：`.page::after` 用 `repeating-linear-gradient` 双角度雨丝 + 雨滴光斑，
-  覆盖整张报告——「暴雨」是游戏的灾变符号，「暴雨从来不停」
-- **逆转时钟**：`hero-art` 左下角徽章，逆时针指针 + 红心 + 雨滴，标签「1999.12.31 23:59」
-  （暴雨降临时刻）；时间倒转是游戏的核心设定
-- **司辰**：ヴェルティン式观测者人设由版画承担（绘图 + 气泡「今日观测已归档」），
-  呼应「记录者」而非天文学家的定位
-- 印章「**暴雨录 / STORM ARCHIVED**」呼应档案主题；<code>已归档</code> 文案保留暴雨意象
-
-三张图在模板里通过 `background-image` 引用（失败时优雅降级、不破坏版面）。
-`assets/<模板名>/art/` 下保存了本地副本：`generate_preview.py` 渲染预览图时会把直链
-替换为本地文件 `file://` 路径，避免预览机 IP 被 Wikimedia 限流（429）导致截图缺图；
-**模板文件本身始终引用直链，不依赖本地副本**。
+资源版权归深蓝互动（Bluepoch）所有，仅供自用与演示；用于商业分发时应更换为已获授权的素材。预览生成脚本会将官网地址替换为 `assets/gda_reverse_1999/art/` 中的本地副本，以保证截图稳定；模板文件本身始终保留官网绝对链接。
 
 ## 许可
 
