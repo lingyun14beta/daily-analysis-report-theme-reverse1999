@@ -1,11 +1,12 @@
 {% if topics %}
-<div class="section-title">今日话题</div>
+<div class="section-title">今日话题 · 时代回声</div>
+<div class="section-sub">ECHOES OF THE ERA · 被记录的声音</div>
 {% for topic in topics %}
 <div class="topic-item avoid-break">
-    <div class="topic-no">#{{ "%02d" | format(topic.index) }}</div>
+    <div class="topic-no"><span>{{ "%02d" | format(topic.index) }}</span></div>
     <div style="flex: 1; min-width: 0;">
         <div class="topic-title">{{ topic.topic.topic }}</div>
-        <div class="topic-meta">🙋 参与者：{{ topic.contributors }}</div>
+        <div class="topic-meta">✦ 在场者：{{ topic.contributors }}</div>
         <div class="topic-detail">{{ topic.detail | safe }}</div>
     </div>
 </div>

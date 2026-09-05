@@ -6,7 +6,7 @@
 ## 仓库结构约定
 
 - **模板目录**：`<模板名>/`——示例：以 `gda_` 开头的小写英文蛇形
-  （如 `gda_sky_diary/`），内含插件契约的 7 件套 HTML
+  （如 `gda_reverse_1999/`），内含插件契约的 7 件套 HTML
   （`image_template.html` / `html_template.html` / `topic_item.html` /
   `user_title_item.html` / `quote_item.html` / `activity_chart.html` /
   `chat_quality_item.html`），以及可选 `template.json`（展示元信息）与

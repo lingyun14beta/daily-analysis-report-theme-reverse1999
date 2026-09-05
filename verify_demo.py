@@ -1,10 +1,11 @@
 """验证 demo 模板仓库：Jinja2 语法 + 运行时渲染 + 安装器端到端（打包→安装→卸载）。
 
 用法:
-    python verify_demo.py [插件仓库路径]
+    python verify_demo.py [模板名] [插件仓库路径]
 
-插件仓库路径也可以不传，通过环境变量 PLUGIN_ROOT 指定；
-不指定时仅执行模板自身的语法与渲染校验，跳过安装器端到端部分。
+模板名默认为 gda_reverse_1999，也可通过环境变量 TPL_NAME 指定；
+插件仓库路径也可通过环境变量 PLUGIN_ROOT 指定。
+不指定插件仓库路径时仅执行模板自身的语法与渲染校验，跳过安装器端到端部分。
 """
 import io
 import json
@@ -17,10 +18,21 @@ from pathlib import Path
 from jinja2 import Environment, FileSystemLoader, StrictUndefined
 
 ROOT = Path(__file__).resolve().parent
-TPL = ROOT / "gda_sky_diary"
-PLUGIN_ROOT = (sys.argv[1] if len(sys.argv) > 1 else "") or os.environ.get(
-    "PLUGIN_ROOT", ""
-)
+
+# 位置参数：能被识别为模板目录名的作为模板名，其余作为插件仓库路径
+_tpl_name = ""
+_plugin_arg = ""
+for arg in sys.argv[1:]:
+    if not _tpl_name and (ROOT / arg / "image_template.html").is_file():
+        _tpl_name = arg
+    elif not _plugin_arg:
+        _plugin_arg = arg
+
+TPL_NAME = _tpl_name or os.environ.get("TPL_NAME", "gda_reverse_1999")
+TPL = ROOT / TPL_NAME
+if not TPL.is_dir():
+    raise SystemExit(f"模板目录不存在: {TPL}")
+PLUGIN_ROOT = _plugin_arg or os.environ.get("PLUGIN_ROOT", "")
 
 # 1) Jinja2 语法检查
 env = Environment(
@@ -151,7 +163,7 @@ from src.infrastructure.reporting.template_installer import (  # noqa: E402
     uninstall_template,
 )
 
-# 2) 打包 zip（模拟仓库下载后的结构：外层 gda_sky_diary/）
+# 2) 打包 zip（模拟仓库下载后的结构：外层 <模板名>/）
 buf = io.BytesIO()
 with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
     for f in sorted(TPL.rglob("*")):
@@ -165,13 +177,16 @@ with tempfile.TemporaryDirectory() as tmp:
         buf.getvalue(),
         store_dir=store,
         source="url",
-        source_url="https://github.com/x/daily-analysis-report-theme",
+        source_url="https://github.com/lingyun14beta/daily-analysis-report-theme-reverse1999",
     )
     print(f"[install] {json.dumps(res, ensure_ascii=False)}")
-    assert res["name"] == "gda_sky_diary", res["name"]
+    assert res["name"] == TPL_NAME, res["name"]
     assert res["has_image"] and res["has_html"]
-    assert res["label"] == "天空日记 (Sky Diary)"
-    installed_dir = store / "gda_sky_diary"
+    tpl_meta = TPL / "template.json"
+    if tpl_meta.is_file():
+        expected_label = json.loads(tpl_meta.read_text(encoding="utf-8"))["name"]
+        assert res["label"] == expected_label, (res["label"], expected_label)
+    installed_dir = store / TPL_NAME
     assert (installed_dir / ".tpl_installed.json").is_file()
     assert {f.name for f in installed_dir.glob("*.html")} == {
         "image_template.html", "html_template.html", "topic_item.html",
@@ -180,7 +195,7 @@ with tempfile.TemporaryDirectory() as tmp:
     }
 
     # 4) 卸载
-    res2 = uninstall_template("gda_sky_diary", store_dir=store)
+    res2 = uninstall_template(TPL_NAME, store_dir=store)
     print(f"[uninstall] {res2}")
     assert res2["removed"] is True
     assert not installed_dir.exists()

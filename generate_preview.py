@@ -1,25 +1,33 @@
 """生成模板预览图：渲染 image_template.html → 无头浏览器截图 → 白边裁剪 → JPEG。
 
 用法:
-    python generate_preview.py
+    python generate_preview.py [模板名]     # 默认 gda_reverse_1999，也可用环境变量 TPL_NAME
 
-输出: assets/gda_sky_diary-demo.jpg
+输出: assets/<模板名>-demo.jpg（完整长图）、assets/<模板名>-demo-thumb.jpg（缩略图）、
+      <模板名>/preview.jpg（随模板打包的预览图）
 依赖: 无头浏览器（Chrome/Edge），可选 PIL（环境无 PIL 时保留 PNG）。
 """
 import base64
+import os
 import shutil
 import subprocess
+import sys
 import tempfile
 from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader, StrictUndefined
 
 ROOT = Path(__file__).resolve().parent
-TPL = ROOT / "gda_sky_diary"
+TPL_NAME = (sys.argv[1] if len(sys.argv) > 1 else "") or os.environ.get(
+    "TPL_NAME", "gda_reverse_1999"
+)
+TPL = ROOT / TPL_NAME
+if not TPL.is_dir():
+    raise SystemExit(f"模板目录不存在: {TPL}")
 OUT_DIR = ROOT / "assets"
-OUT_JPG = OUT_DIR / "gda_sky_diary-demo.jpg"
-OUT_THUMB = OUT_DIR / "gda_sky_diary-demo-thumb.jpg"
-OUT_PNG = OUT_DIR / "gda_sky_diary-demo.png"
+OUT_JPG = OUT_DIR / f"{TPL_NAME}-demo.jpg"
+OUT_THUMB = OUT_DIR / f"{TPL_NAME}-demo-thumb.jpg"
+OUT_PNG = OUT_DIR / f"{TPL_NAME}-demo.png"
 
 # ---------- 1) 构造示例数据并渲染 ----------
 def svg_avatar(color: str) -> str:
@@ -187,16 +195,23 @@ with tempfile.TemporaryDirectory(prefix="tpl_preview_") as tmp:
     img = Image.open(png_path).convert("RGB")
     w, h = img.size
     pixels = img.load()
-    # 从底部向上跳过纯白/近白行
+    # 以底边一行采样像素的中位数为页面底色（避免恰好踩中装饰纹理），
+    # 从底部向上跳过「接近底色」的空白行
+    samples = sorted(pixels[x, h - 4] for x in range(0, w, 8))
+    bg = samples[len(samples) // 2]
+
+    def _near_bg(r, g, b, tol=16):
+        return abs(r - bg[0]) <= tol and abs(g - bg[1]) <= tol and abs(b - bg[2]) <= tol
+
     bottom = h
     for y in range(h - 1, 0, -1):
-        row_white = True
+        row_blank = True
         for x in range(0, w, 8):  # 采样步长 8 加速
             r, g, b = pixels[x, y]
-            if not (r > 248 and g > 248 and b > 248):
-                row_white = False
+            if not _near_bg(r, g, b):
+                row_blank = False
                 break
-        if not row_white:
+        if not row_blank:
             bottom = y + 1
             break
     cropped = img.crop((0, 0, w, min(bottom + 24, h)))

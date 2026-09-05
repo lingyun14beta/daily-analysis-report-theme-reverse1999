@@ -1,20 +1,21 @@
-# 群聊日常分析 · 报告模板示例仓库（Sky Diary 天空日记）
+# 群聊日常分析 · 报告模板仓库（暴雨档案馆 Reverse: 1999）
 
 本仓库是 [astrbot_plugin_qq_group_daily_analysis](https://github.com/SXP-Simon/astrbot_plugin_qq_group_daily_analysis)
-的 **报告视觉模板示例仓库**，可以作为你自己的模板仓库的起点。
+的 **报告视觉模板仓库**，可以作为你自己的模板仓库的起点。
 
-内置模板：**`gda_sky_diary`（天空日记 Sky Diary）** —— 蓝白渐变现代简约风。
+内置模板：**`gda_reverse_1999`（暴雨档案馆 Reverse: 1999）** —— 重返未来1999 复古金箔风，
+深夜墨绿底 + 鎏金羊皮纸档案卡，倒置时钟与胶片齿孔装饰。
 
 > 预览：
-> ![天空日记预览图](assets/gda_sky_diary-demo-thumb.jpg)
+> ![暴雨档案馆预览图](assets/gda_reverse_1999-demo-thumb.jpg)
 >
-> 完整长图见 [assets/gda_sky_diary-demo.jpg](assets/gda_sky_diary-demo.jpg)。
+> 完整长图见 [assets/gda_reverse_1999-demo.jpg](assets/gda_reverse_1999-demo.jpg)。
 
 > 📌 **图片文件说明**（三张图用途不同，别混淆）：
-> - `assets/gda_sky_diary-demo-thumb.jpg` —— **本 README 展示用的缩略图**（宽 420，仅约 47KB），
+> - `assets/gda_reverse_1999-demo-thumb.jpg` —— **本 README 展示用的缩略图**（宽 420 以内），
 >   用于仓库首页快速预览效果；不参与模板运行，也不打包进 zip 之外的任何插件逻辑。
-> - `assets/gda_sky_diary-demo.jpg` —— **完整长图**（750×2311），README 以链接附上，供点开看全部细节。
-> - `gda_sky_diary/preview.jpg` —— **随模板打包的预览图**：用户安装本模板后，
+> - `assets/gda_reverse_1999-demo.jpg` —— **完整长图**，README 以链接附上，供点开看全部细节。
+> - `gda_reverse_1999/preview.jpg` —— **随模板打包的预览图**：用户安装本模板后，
 >   QQ `/查看模板` 与 WebUI 画廊显示的就是这张图（区别于上面两张仅作仓库展示）。
 >
 > 三者均由 `generate_preview.py` 一次生成。
@@ -24,10 +25,10 @@
 在插件 Web 控制台 → 配置页 → 模板选择器旁「安装模板」→ GitHub 链接页签：
 
 ```
-https://github.com/<你的用户名>/daily-analysis-report-theme
+https://github.com/lingyun14beta/daily-analysis-report-theme-reverse1999
 ```
 
-插件会自动下载源码、识别 `gda_sky_diary/` 模板目录并安装，**无需重启机器人**。
+插件会自动下载源码、识别 `gda_reverse_1999/` 模板目录并安装，**无需重启机器人**。
 也可以在本仓库页面点 `Code ▾ → Download ZIP`，然后在「安装模板 → 上传 zip」直接上传。
 
 > 安装成功后模板会出现在「断点续跑」「免 Token 切换主题重绘」下拉中；
@@ -38,7 +39,7 @@ https://github.com/<你的用户名>/daily-analysis-report-theme
 ```
 daily-analysis-report-theme/
 ├── README.md                # 本说明
-└── gda_sky_diary/           # 模板根目录（zip 打包时打包这一层）
+└── gda_reverse_1999/        # 模板根目录（zip 打包时打包这一层）
     ├── image_template.html  # 长图海报主骨架
     ├── html_template.html   # 独立网页主骨架
     ├── topic_item.html      # 话题列表模块
@@ -46,24 +47,27 @@ daily-analysis-report-theme/
     ├── quote_item.html      # 金句与锐评模块
     ├── activity_chart.html  # 24h 活跃轨迹模块
     ├── chat_quality_item.html # 群聊质量锐评模块
-    └── template.json        # 模板显示名 {"name": "天空日记 (Sky Diary)"}
+    ├── template.json        # 模板显示名 {"name": "暴雨档案馆 (Reverse: 1999)"}
+    └── preview.jpg          # 随包预览图
 ```
 
 ## 快速自定义
 
-所有视觉都由 `gda_sky_diary/image_template.html` 头部 `:root { ... }` 的 CSS 变量控制：
+所有视觉都由 `gda_reverse_1999/image_template.html` 头部 `:root { ... }` 的 CSS 变量控制：
 
 ```css
 :root {
-    --sky-top: #e3f4fd;      /* 页面顶部渐变 */
-    --sky-bottom: #ffffff;   /* 页面底部渐变 */
-    --accent: #4a9fd8;       /* 主色（进度条/装饰） */
-    --accent-deep: #2b6d9e;  /* 深主色（标题/数字） */
-    --warn: #f6a940;         /* 强调色（锐评标签） */
-    --ink: #1f3a52;          /* 正文色 */
-    --ink-soft: #5c7a93;     /* 次要文字 */
-    --line: #d7e9f5;         /* 分隔线 */
-    --radius: 14px;          /* 卡片圆角 */
+    --bg-deep: #0c1716;      /* 页面底色（深夜墨绿黑） */
+    --bg-panel: #132221;     /* 深色面板（KPI 铭牌） */
+    --gold: #c9a44f;         /* 主色（鎏金描边/装饰） */
+    --gold-light: #e8cf8d;   /* 浅金（标题/数字） */
+    --gold-deep: #8a6d2f;    /* 深金（次要强调） */
+    --paper: #f3ead6;        /* 羊皮纸卡面 */
+    --ink: #26332f;          /* 正文色 */
+    --ink-soft: #6b7263;     /* 次要文字 */
+    --rust: #b4552d;         /* 锈红（锐评标签） */
+    --line: #d6c69c;         /* 分隔线 */
+    --radius: 6px;           /* 卡片圆角 */
 }
 ```
 
@@ -78,7 +82,7 @@ daily-analysis-report-theme/
 | 根目录 | 允许外层套一层目录（`repo-main` 形式自动剥离） |
 | 大小 | 解压后 ≤ 64MB、单文件 ≤ 20MB、成员 ≤ 300 |
 | 命名 | 建议小写英文蛇形（如 `gda_xxx`）、≤ 50 字符、无空格与特殊字符；与内置模板重名会被拒绝 |
-| 显示名 | 可选 `template.json` 放在模板根目录：`{"name": "中文名", "desc": "说明", "tag": "水蓝色", "tag_color": "blue"}`（desc 显示在 WebUI 下拉/卸载弹窗，tag/tag_color 为下拉中的风格标签；字段均可选，仅 name 也可） |
+| 显示名 | 可选 `template.json` 放在模板根目录：`{"name": "中文名", "desc": "说明", "tag": "复古金箔", "tag_color": "gold"}`（desc 显示在 WebUI 下拉/卸载弹窗，tag/tag_color 为下拉中的风格标签；字段均可选，仅 name 也可） |
 | 预览图 | 可选 `preview.jpg/png` 或 `demo.jpg/png` 放在模板目录内：随 zip 一起打包安装后，QQ `/查看模板` 即可显示该预览图 |
 | 模板内引用图片 | 只能用**绝对 URL（公开图库链接）**或**内联 data URI / `<svg>`**——报告 HTML 是字符串交给远端 T2I 渲染服务，**相对路径（如 `assets/bg.png`）渲染时必然 404**；预览图（preview.jpg）除外。小图标建议 base64/内联 SVG，大装饰图建议放本仓库 `assets/<模板名>/` 后用 jsDelivr 绝对链接（参考内置 HatsuneMiku 模板的做法） |
 | 多余的脚本/文件 | 模板目录内可放置任意文件（安装器原样保留、运行时会忽略），但脚本类文件请留在仓库根，避免徒增 zip 体积 |
@@ -87,14 +91,14 @@ daily-analysis-report-theme/
 >
 > ```json
 > {
->   "name": "天空日记 (Sky Diary)",
->   "desc": "蓝白渐变现代简约风，清爽圆角卡片与轻盈阴影，适合日常群聊报告",
->   "tag": "清新渐变",
->   "tag_color": "blue"
+>   "name": "暴雨档案馆 (Reverse: 1999)",
+>   "desc": "重返未来1999 复古金箔风：深夜墨绿与鎏金纸卡，司辰的群聊观测档案",
+>   "tag": "复古金箔",
+>   "tag_color": "gold"
 > }
 > ```
 >
-> 本仓库实际使用： [`gda_sky_diary/template.json`](gda_sky_diary/template.json)。
+> 本仓库实际使用： [`gda_reverse_1999/template.json`](gda_reverse_1999/template.json)。
 > 字段均可选（仅 `name` 即可），字符串长度上限 100，仅支持 JSON。
 
 ## 渲染变量契约
@@ -113,11 +117,11 @@ title+subtitle+dimensions+summary`。
 仓库根提供 `verify_demo.py`，在修改模板后运行：
 
 ```bash
-# 仅校验模板自身（语法 + StrictUndefined 渲染）
-python verify_demo.py
+# 校验指定模板（语法 + StrictUndefined 渲染），缺省为 gda_reverse_1999
+python verify_demo.py [模板名]
 
 # 完整检查：额外模拟打包 zip 走一遍插件的安装/卸载流程
-python verify_demo.py <插件仓库路径>   # 或 export PLUGIN_ROOT=<插件仓库路径>
+python verify_demo.py [模板名] <插件仓库路径>   # 插件路径也可用 PLUGIN_ROOT 环境变量
 ```
 
 它会依次：校验全部 HTML 的 Jinja2 语法 → 用 StrictUndefined 实际渲染 7 个模板
@@ -129,12 +133,12 @@ python verify_demo.py <插件仓库路径>   # 或 export PLUGIN_ROOT=<插件仓
 
 仓库根提供 `generate_preview.py`，用无头浏览器（Chrome/Edge）渲染模板并生成：
 
-- `assets/gda_sky_diary-demo.jpg`（完整长图）
-- `assets/gda_sky_diary-demo-thumb.jpg`（README 展示缩略图）
-- `gda_sky_diary/preview.jpg`（随模板打包，供 `/查看模板` 显示）
+- `assets/<模板名>-demo.jpg`（完整长图）
+- `assets/<模板名>-demo-thumb.jpg`（README 展示缩略图）
+- `<模板名>/preview.jpg`（随模板打包，供 `/查看模板` 显示）
 
 ```bash
-python generate_preview.py
+python generate_preview.py [模板名]     # 缺省为 gda_reverse_1999
 ```
 
 `verify_demo.py` 的 mock 数据在生成脚本中扩展成了更完整的示例内容

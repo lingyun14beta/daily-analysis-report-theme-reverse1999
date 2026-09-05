@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="{{ 'zh-CN' if t2i_font_source == 'Mainland' else 'zh-Hant' }}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>群聊日常分析 · {{ current_date }}</title>
+    <link rel="preconnect" href="{{ t2i_google_fonts_mirror }}">
+    <link rel="preconnect" href="{{ t2i_gstatic_mirror }}" crossorigin>
+    <link
+        href="{{ t2i_google_fonts_mirror }}/css2?family=Noto+Serif+SC:wght@500;700;900&family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-deep: #0c1716;
+            --bg-panel: #132221;
+            --gold: #c9a44f;
+            --gold-light: #e8cf8d;
+            --gold-deep: #8a6d2f;
+            --paper: #f3ead6;
+            --paper-soft: #eadcbc;
+            --ink: #26332f;
+            --ink-soft: #6b7263;
+            --rust: #b4552d;
+            --line: #d6c69c;
+            --radius: 6px;
+            --font-title: {% if t2i_font_source == 'Mainland' %}'Noto Serif SC', 'Noto Serif TC'{% else %}'Noto Serif TC', 'Noto Serif SC'{% endif %}, serif;
+            --font-body: {% if t2i_font_source == 'Mainland' %}'Noto Sans SC', 'Noto Sans TC'{% else %}'Noto Sans TC', 'Noto Sans SC'{% endif %}, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            background-color: var(--bg-deep);
+            background-image:
+                radial-gradient(ellipse 700px 460px at 50% -60px, rgba(201, 164, 79, 0.12) 0%, transparent 70%),
+                repeating-linear-gradient(115deg, transparent 0 46px, rgba(232, 207, 141, 0.035) 46px 47px),
+                linear-gradient(180deg, #101d1c 0%, var(--bg-deep) 320px);
+            background-repeat: no-repeat, repeat, no-repeat;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--gold-light);
+            min-height: 100vh;
+        }
+
+        .page {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 0 32px 64px;
+        }
+
+        /* ============ 胶片齿孔（顶部） ============ */
+        .film-strip {
+            display: flex;
+            justify-content: space-between;
+            padding: 14px 6px;
+        }
+
+        .film-hole {
+            width: 18px;
+            height: 11px;
+            border-radius: 3px;
+            border: 1px solid rgba(201, 164, 79, 0.55);
+            background: rgba(201, 164, 79, 0.08);
+        }
+
+        /* ============ Header ============ */
+        .hero {
+            text-align: center;
+            padding: 30px 20px 34px;
+            border: 1px solid rgba(201, 164, 79, 0.55);
+            outline: 1px solid rgba(201, 164, 79, 0.25);
+            outline-offset: 5px;
+            background: linear-gradient(180deg, rgba(201, 164, 79, 0.07), rgba(201, 164, 79, 0.02));
+        }
+
+        .hero-badge {
+            display: inline-block;
+            font-size: 11px;
+            letter-spacing: 4px;
+            color: var(--gold);
+            border-top: 1px solid rgba(201, 164, 79, 0.5);
+            border-bottom: 1px solid rgba(201, 164, 79, 0.5);
+            padding: 5px 18px;
+            margin-bottom: 16px;
+        }
+
+        .hero-clock {
+            margin: 2px auto 10px;
+            display: block;
+        }
+
+        .hero-title {
+            font-family: var(--font-title);
+            font-weight: 900;
+            font-size: 40px;
+            letter-spacing: 6px;
+            background: linear-gradient(180deg, var(--gold-light) 15%, var(--gold) 55%, var(--gold-deep) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .hero-sub {
+            font-size: 12px;
+            letter-spacing: 5px;
+            color: rgba(232, 207, 141, 0.65);
+            margin-bottom: 14px;
+        }
+
+        .hero-date {
+            display: inline-block;
+            font-size: 13px;
+            color: var(--gold-light);
+            border: 1px solid rgba(201, 164, 79, 0.45);
+            padding: 5px 16px;
+            letter-spacing: 1px;
+        }
+
+        .hero-anno {
+            margin-top: 12px;
+            font-size: 11px;
+            color: rgba(232, 207, 141, 0.5);
+            letter-spacing: 2px;
+        }
+
+        /* ============ KPI 黄铜铭牌 ============ */
+        .kpi-row {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .kpi-card {
+            flex: 1;
+            text-align: center;
+            background: var(--bg-panel);
+            border: 1px solid rgba(201, 164, 79, 0.5);
+            padding: 15px 6px 13px;
+            position: relative;
+        }
+
+        .kpi-card::before {
+            content: "";
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            right: 4px;
+            bottom: 4px;
+            border: 1px solid rgba(201, 164, 79, 0.2);
+            pointer-events: none;
+        }
+
+        .kpi-num {
+            font-family: var(--font-title);
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--gold-light);
+        }
+
+        .kpi-label {
+            font-size: 11px;
+            letter-spacing: 2px;
+            color: rgba(232, 207, 141, 0.6);
+            margin-top: 4px;
+        }
+
+        /* ============ Section（羊皮纸档案卡） ============ */
+        .section {
+            background: linear-gradient(180deg, var(--paper) 0%, var(--paper-soft) 100%);
+            border: 1px solid var(--gold);
+            border-radius: var(--radius);
+            padding: 26px 28px;
+            margin-top: 24px;
+            box-shadow:
+                0 0 0 4px var(--bg-deep),
+                0 0 0 5px rgba(201, 164, 79, 0.35),
+                0 10px 24px rgba(0, 0, 0, 0.45);
+            color: var(--ink);
+            position: relative;
+        }
+
+        .section-title {
+            font-family: var(--font-title);
+            font-weight: 700;
+            font-size: 21px;
+            letter-spacing: 2px;
+            color: var(--ink);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 6px;
+        }
+
+        .section-title::before {
+            content: "";
+            width: 11px;
+            height: 11px;
+            background: var(--gold);
+            transform: rotate(45deg);
+            flex-shrink: 0;
+            box-shadow: 0 0 0 3px rgba(201, 164, 79, 0.25);
+        }
+
+        .section-title::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, var(--gold) 0%, transparent 100%);
+        }
+
+        .section-sub {
+            font-size: 11px;
+            letter-spacing: 3px;
+            color: var(--gold-deep);
+            margin-bottom: 16px;
+        }
+
+        /* ============ Peak ============ */
+        .peak-box {
+            margin-top: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(201, 164, 79, 0.14);
+            border: 1px dashed var(--gold-deep);
+            padding: 12px 16px;
+        }
+
+        .peak-icon {
+            font-size: 20px;
+        }
+
+        .peak-text {
+            font-size: 14px;
+            color: var(--ink);
+        }
+
+        .peak-text b {
+            font-family: var(--font-title);
+            font-size: 16px;
+            color: var(--rust);
+        }
+
+        /* ============ Activity Chart (24h) ============ */
+        .chart-section {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            height: 200px;
+            padding: 26px 6px 4px;
+            margin-top: 10px;
+            border-bottom: 2px solid var(--gold-deep);
+        }
+
+        .chart-column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            height: 100%;
+            flex: 1;
+            margin: 0 2px;
+            position: relative;
+        }
+
+        .chart-bar {
+            width: 100%;
+            min-height: 3px;
+            background: linear-gradient(180deg, var(--gold-light) 0%, var(--gold) 45%, var(--gold-deep) 100%);
+            opacity: 0.92;
+            transition: height 0.3s ease;
+        }
+
+        .chart-value {
+            position: absolute;
+            top: -20px;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--gold-deep);
+            width: 100%;
+            text-align: center;
+        }
+
+        .chart-label {
+            margin-top: 8px;
+            font-size: 10px;
+            color: var(--ink-soft);
+            text-align: center;
+        }
+
+        /* ============ Topics ============ */
+        .topic-item {
+            display: flex;
+            gap: 14px;
+            padding: 14px 0;
+            border-bottom: 1px dashed var(--line);
+        }
+
+        .topic-item:last-child {
+            border-bottom: none;
+        }
+
+        .topic-no {
+            flex-shrink: 0;
+            width: 30px;
+            height: 30px;
+            background: var(--ink);
+            color: var(--gold-light);
+            font-family: var(--font-title);
+            font-size: 13px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 2px;
+            border: 1px solid var(--gold);
+            transform: rotate(45deg);
+        }
+
+        .topic-no span {
+            transform: rotate(-45deg);
+        }
+
+        .topic-title {
+            font-family: var(--font-title);
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 4px;
+        }
+
+        .topic-meta {
+            font-size: 12px;
+            color: var(--gold-deep);
+            margin-bottom: 6px;
+            letter-spacing: 1px;
+        }
+
+        .topic-detail {
+            font-size: 13px;
+            color: var(--ink);
+            line-height: 1.75;
+        }
+
+        /* ============ User Titles ============ */
+        .title-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .title-card {
+            flex: 1 1 200px;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            background: rgba(255, 252, 244, 0.7);
+            border: 1px solid var(--line);
+            padding: 13px;
+            position: relative;
+        }
+
+        .title-card::before {
+            content: "";
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            right: 3px;
+            bottom: 3px;
+            border: 1px solid rgba(201, 164, 79, 0.3);
+            pointer-events: none;
+        }
+
+        .title-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            overflow: hidden;
+            flex-shrink: 0;
+            background: var(--paper-soft);
+            border: 2px solid var(--gold);
+            box-shadow: 0 0 0 2px var(--paper), 0 0 0 3px rgba(201, 164, 79, 0.5);
+        }
+
+        .title-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .title-name {
+            font-family: var(--font-title);
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--ink);
+        }
+
+        .title-title {
+            display: inline-block;
+            font-size: 11px;
+            color: var(--paper);
+            background: var(--ink);
+            border: 1px solid var(--gold);
+            padding: 2px 9px;
+            margin-top: 4px;
+            letter-spacing: 1px;
+        }
+
+        .title-mbti {
+            display: inline-block;
+            font-size: 10px;
+            color: var(--rust);
+            background: rgba(180, 85, 45, 0.12);
+            border: 1px solid rgba(180, 85, 45, 0.4);
+            padding: 2px 8px;
+            margin-left: 4px;
+            margin-top: 4px;
+        }
+
+        .title-reason {
+            font-size: 11px;
+            color: var(--ink-soft);
+            line-height: 1.65;
+            margin-top: 6px;
+        }
+
+        /* ============ Quotes ============ */
+        .quote-wrapper {
+            padding: 13px 0;
+            border-bottom: 1px dashed var(--line);
+        }
+
+        .quote-wrapper:last-child {
+            border-bottom: none;
+        }
+
+        .q-flex {
+            display: flex;
+            gap: 12px;
+        }
+
+        .q-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+            background: var(--paper-soft);
+            border: 2px solid var(--gold);
+        }
+
+        .q-sender {
+            font-family: var(--font-title);
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--gold-deep);
+            margin-bottom: 4px;
+            letter-spacing: 1px;
+        }
+
+        .q-bubble {
+            background: rgba(255, 252, 244, 0.75);
+            border: 1px solid var(--line);
+            border-left: 3px solid var(--gold);
+            padding: 10px 14px;
+            font-size: 14px;
+            color: var(--ink);
+            line-height: 1.7;
+            position: relative;
+        }
+
+        .q-bubble::before {
+            content: "❝";
+            position: absolute;
+            top: -12px;
+            left: 6px;
+            font-size: 26px;
+            color: var(--gold);
+            font-family: var(--font-title);
+        }
+
+        .q-note {
+            font-size: 12px;
+            color: var(--ink-soft);
+            line-height: 1.7;
+            margin-top: 7px;
+        }
+
+        .q-note .note-label {
+            color: var(--rust);
+            font-weight: 700;
+        }
+
+        /* ============ Chat Quality ============ */
+        .quality-summary {
+            font-size: 13px;
+            color: var(--ink);
+            line-height: 1.75;
+            margin-bottom: 12px;
+        }
+
+        .dim-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            font-size: 12px;
+        }
+
+        .dim-name {
+            width: 88px;
+            flex-shrink: 0;
+            color: var(--ink);
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .dim-bar-box {
+            flex: 1;
+            height: 10px;
+            background: rgba(38, 51, 47, 0.12);
+            border: 1px solid rgba(201, 164, 79, 0.35);
+            overflow: hidden;
+        }
+
+        .dim-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--gold-deep) 0%, var(--gold) 60%, var(--gold-light) 100%);
+        }
+
+        .dim-comment {
+            flex: 1.6;
+            color: var(--ink-soft);
+            line-height: 1.5;
+        }
+
+        /* ============ Footer ============ */
+        .footer {
+            margin-top: 32px;
+            text-align: center;
+            font-size: 11px;
+            color: rgba(232, 207, 141, 0.55);
+            line-height: 1.9;
+            letter-spacing: 1px;
+        }
+
+        .footer .stamp {
+            display: inline-block;
+            border: 1px solid rgba(201, 164, 79, 0.5);
+            border-radius: 50%;
+            width: 74px;
+            height: 74px;
+            line-height: 1.4;
+            padding-top: 20px;
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: rgba(201, 164, 79, 0.75);
+            transform: rotate(-8deg);
+            margin-bottom: 14px;
+        }
+
+        .footer .token-line {
+            color: rgba(232, 207, 141, 0.35);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <!-- 胶片齿孔 -->
+        <div class="film-strip">
+            {% for i in range(16) %}<div class="film-hole"></div>{% endfor %}
+        </div>
+
+        <!-- 头部 -->
+        <div class="hero">
+            <div class="hero-badge">TIMEKEEPER'S FIELD LOG · 司辰观测日志</div>
+            <svg class="hero-clock" width="76" height="76" viewBox="0 0 72 72" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <circle cx="36" cy="36" r="32" stroke="#c9a44f" stroke-width="1.6" />
+                <circle cx="36" cy="36" r="27" stroke="#c9a44f" stroke-width="0.7" opacity="0.55" />
+                <g stroke="#c9a44f" stroke-width="1.4">
+                    <line x1="36" y1="7" x2="36" y2="12" />
+                    <line x1="36" y1="60" x2="36" y2="65" />
+                    <line x1="7" y1="36" x2="12" y2="36" />
+                    <line x1="60" y1="36" x2="65" y2="36" />
+                </g>
+                <g stroke="#c9a44f" stroke-width="0.8" opacity="0.6">
+                    <line x1="50.5" y1="10.9" x2="48" y2="15.2" />
+                    <line x1="21.5" y1="10.9" x2="24" y2="15.2" />
+                    <line x1="50.5" y1="61.1" x2="48" y2="56.8" />
+                    <line x1="21.5" y1="61.1" x2="24" y2="56.8" />
+                    <line x1="10.9" y1="21.5" x2="15.2" y2="24" />
+                    <line x1="10.9" y1="50.5" x2="15.2" y2="48" />
+                    <line x1="61.1" y1="21.5" x2="56.8" y2="24" />
+                    <line x1="61.1" y1="50.5" x2="56.8" y2="48" />
+                </g>
+                <!-- 逆时针行走的指针 -->
+                <line x1="36" y1="36" x2="36" y2="16" stroke="#e8cf8d" stroke-width="2.4"
+                    stroke-linecap="round" transform="rotate(-50 36 36)" />
+                <line x1="36" y1="36" x2="36" y2="12" stroke="#e8cf8d" stroke-width="1.4"
+                    stroke-linecap="round" transform="rotate(140 36 36)" />
+                <circle cx="36" cy="36" r="2.6" fill="#c9a44f" />
+                <!-- 回溯箭头 -->
+                <path d="M 58 22 A 26 26 0 0 0 22 14" stroke="#e8cf8d" stroke-width="1.6" fill="none" />
+                <path d="M 18 10 L 22 14 L 17 18" stroke="#e8cf8d" stroke-width="1.6" fill="none"
+                    stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <div class="hero-title">群聊日常分析</div>
+            <div class="hero-sub">DAILY GROUP DIGEST · IN REVERSE</div>
+            <div class="hero-date">档案日期 {{ current_date }} · 记录时刻 {{ current_datetime }}</div>
+            <div class="hero-anno">「暴雨」未曾冲走的，都已被记录</div>
+        </div>
+
+        <!-- 核心指标 -->
+        <div class="kpi-row">
+            <div class="kpi-card">
+                <div class="kpi-num">{{ message_count }}</div>
+                <div class="kpi-label">消息总数</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-num">{{ participant_count }}</div>
+                <div class="kpi-label">参与人数</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-num">{{ emoji_count }}</div>
+                <div class="kpi-label">表情包</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-num">{{ total_characters }}</div>
+                <div class="kpi-label">文字总量</div>
+            </div>
+        </div>
+
+        <!-- 活跃时段 + 24h 图表 -->
+        <div class="section">
+            <div class="section-title">今日活跃轨迹</div>
+            <div class="section-sub">24H REWIND TRACK · 时间回溯</div>
+            <div class="peak-box">
+                <div class="peak-icon">⏳</div>
+                <div class="peak-text">最活跃时段：<b>{{ most_active_period }}</b></div>
+            </div>
+            {{ hourly_chart_html | safe }}
+        </div>
+
+        <!-- 话题 -->
+        <div class="section">
+            {{ topics_html | safe }}
+        </div>
+
+        <!-- 群友称号与画像 -->
+        <div class="section">
+            {{ titles_html | safe }}
+        </div>
+
+        <!-- 金句与锐评 -->
+        <div class="section">
+            {{ quotes_html | safe }}
+        </div>
+
+        <!-- 聊天质量锐评（可能为空） -->
+        {% if chat_quality_html %}
+        <div class="section">
+            {{ chat_quality_html | safe }}
+        </div>
+        {% endif %}
+
+        <!-- 页脚 -->
+        <div class="footer">
+            <div class="stamp">ARCHIVED<br>已归档</div>
+            <div>本报告由 AstrBot 群聊日常分析插件生成 · 暴雨过后，记录永存</div>
+            <div class="token-line">分析耗时 Token：{{ total_tokens }}（Prompt {{ prompt_tokens }} / 生成 {{ completion_tokens }}）</div>
+        </div>
+    </div>
+</body>
+
+</html>
