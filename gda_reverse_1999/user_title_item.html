@@ -1,24 +1,27 @@
 {% if titles %}
-<div class="section-title">群友画像 · 神秘学家名录</div>
-<div class="section-sub">ARCANIST REGISTRY · 本群登记在册</div>
+<div class="sec-head">
+    <div class="sec-no">叁</div>
+    <div>
+        <div class="sec-title">群友画像</div>
+        <div class="sec-sub">ARCANIST REGISTRY &middot; 本群登记在册</div>
+    </div>
+</div>
 <div class="title-grid">
     {% for title in titles %}
     <div class="title-card avoid-break">
-        <div class="title-avatar">
+        <div class="t-avatar">
             {% if title.avatar_data %}
             <img src="{{ title.avatar_data }}" alt="头像">
             {% endif %}
         </div>
-        <div style="flex: 1; min-width: 0;">
-            <div class="title-name">{{ title.name }}</div>
-            <div>
-                <span class="title-title">{{ title.title }}</span>
-                {% if title.profile_display or title.mbti %}
-                <span class="title-mbti">{{ title.profile_display or title.mbti }}</span>
-                {% endif %}
-            </div>
-            <div class="title-reason">{{ title.reason }}</div>
+        <div class="t-name">{{ '神秘群友' if hide_user_names else title.name }}</div>
+        <div class="t-badges">
+            <span class="t-title-tag">{{ title.title }}</span>
+            {% if title.profile_display or title.mbti %}
+            <span class="t-mbti">{{ title.profile_display or title.mbti }}</span>
+            {% endif %}
         </div>
+        <div class="t-reason">{{ title.reason }}</div>
     </div>
     {% endfor %}
 </div>

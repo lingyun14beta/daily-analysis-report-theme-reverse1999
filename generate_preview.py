@@ -109,7 +109,14 @@ sub_ctx = {
             "avatar_url": svg_avatar("#5cbf8a"),
         },
     ],
-    "chart_data": [{"hour": i, "count": i, "percentage": i * 4} for i in range(24)],
+    # 贴近真实群作息：深夜低谷 → 白天平缓 → 晚间高峰（21-23 点为峰值窗）
+    "chart_data": [
+        {"hour": i, "count": c, "percentage": c}
+        for i, c in enumerate(
+            [4, 3, 2, 2, 3, 6, 12, 20, 26, 24, 28, 32,
+             30, 26, 24, 22, 26, 34, 46, 62, 78, 92, 100, 96]
+        )
+    ],
     "title": "今日群聊质量锐评",
     "subtitle": "总体氛围极佳",
     "summary": "全群保持高热度互动，深夜回血、白天封神，只差亿点点正经。",

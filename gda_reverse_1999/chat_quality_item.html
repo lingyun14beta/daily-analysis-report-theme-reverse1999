@@ -1,7 +1,12 @@
 {% if title %}
-<div class="section-title">群聊质量锐评 · 时代评级</div>
-<div class="section-sub">ERA ASSESSMENT · 观测员总结</div>
-<div class="quality-summary"><b>{{ title }}</b>{% if subtitle %} · {{ subtitle }}{% endif %}</div>
+<div class="sec-head">
+    <div class="sec-no">伍</div>
+    <div>
+        <div class="sec-title">群聊质量锐评</div>
+        <div class="sec-sub">ERA ASSESSMENT &middot; 观测员总结</div>
+    </div>
+</div>
+<div class="quality-summary head"><b>{{ title }}</b>{% if subtitle %} · {{ subtitle }}{% endif %}</div>
 {% endif %}
 {% if summary %}
 <div class="quality-summary">{{ summary }}</div>

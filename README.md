@@ -3,8 +3,8 @@
 本仓库是 [astrbot_plugin_qq_group_daily_analysis](https://github.com/SXP-Simon/astrbot_plugin_qq_group_daily_analysis)
 的 **报告视觉模板仓库**，可以作为你自己的模板仓库的起点。
 
-内置模板：**`gda_reverse_1999`（暴雨档案馆 Reverse: 1999）** —— 重返未来1999 复古金箔风，
-深夜墨绿底 + 鎏金羊皮纸档案卡，倒置时钟与胶片齿孔装饰。
+内置模板：**`gda_reverse_1999`（暴雨档案馆 Reverse: 1999）** —— 重返未来1999 风格暗夜档案馆，
+深夜墨绿底 × 鎏金细线 × 印泥朱红，倒置时钟与档案印章，24h 活跃曲线图为平滑鎏金面积图。
 
 > 预览：
 > ![暴雨档案馆预览图](assets/gda_reverse_1999-demo-thumb.jpg)
@@ -57,21 +57,27 @@ daily-analysis-report-theme/
 
 ```css
 :root {
-    --bg-deep: #0c1716;      /* 页面底色（深夜墨绿黑） */
-    --bg-panel: #132221;     /* 深色面板（KPI 铭牌） */
-    --gold: #c9a44f;         /* 主色（鎏金描边/装饰） */
-    --gold-light: #e8cf8d;   /* 浅金（标题/数字） */
+    --bg-deep: #0a100f;      /* 页面底色（深夜墨黑） */
+    --bg-panel: #101b18;     /* 深色面板（画像卡） */
+    --bg-panel-2: #14211d;   /* 面板渐变的亮端 */
+    --gold: #cfa85a;         /* 主色（鎏金） */
+    --gold-light: #eed9a4;   /* 浅金（标题/曲线高光） */
     --gold-deep: #8a6d2f;    /* 深金（次要强调） */
-    --paper: #f3ead6;        /* 羊皮纸卡面 */
-    --ink: #26332f;          /* 正文色 */
-    --ink-soft: #6b7263;     /* 次要文字 */
-    --rust: #b4552d;         /* 锈红（锐评标签） */
-    --line: #d6c69c;         /* 分隔线 */
+    --paper: #f5ecd6;        /* 纸色（预留浅色卡面） */
+    --paper-soft: #eadcbb;   /* 纸色加深 */
+    --ink: #e9e3d2;          /* 正文色（暖白） */
+    --ink-soft: #a3a892;     /* 次要文字 */
+    --ink-faint: #6d7566;    /* 弱化文字（拉丁副标题） */
+    --rust: #b3402f;         /* 印泥朱红（序号/印章/批注） */
+    --line: rgba(207,168,90,0.16);   /* 细分隔线 */
+    --line-strong: rgba(207,168,90,0.34); /* 强调描边 */
     --radius: 6px;           /* 卡片圆角 */
 }
 ```
 
 改完颜色即可得到自己的风格；改版式请直接修改对应 HTML 文件。
+拉丁文装饰（副标题/图表注记）使用变量 `--font-latin`（默认 Cormorant Garamond 衬线斜体），
+可整体替换为更衬主题的西文字体。
 
 ## 打包规范速查（安装器强制校验）
 
@@ -92,8 +98,8 @@ daily-analysis-report-theme/
 > ```json
 > {
 >   "name": "暴雨档案馆 (Reverse: 1999)",
->   "desc": "重返未来1999 复古金箔风：深夜墨绿与鎏金纸卡，司辰的群聊观测档案",
->   "tag": "复古金箔",
+>   "desc": "重返未来1999 暗夜档案馆：深夜墨绿 × 鎏金细线 × 印泥朱红，司辰的群聊观测档案",
+>   "tag": "暗夜鎏金",
 >   "tag_color": "gold"
 > }
 > ```

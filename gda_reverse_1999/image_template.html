@@ -8,25 +8,29 @@
     <link rel="preconnect" href="{{ t2i_google_fonts_mirror }}">
     <link rel="preconnect" href="{{ t2i_gstatic_mirror }}" crossorigin>
     <link
-        href="{{ t2i_google_fonts_mirror }}/css2?family=Noto+Serif+SC:wght@500;700;900&family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap"
+        href="{{ t2i_google_fonts_mirror }}/css2?family=Noto+Serif+SC:wght@500;700;900&family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap"
         rel="stylesheet">
 
     <style>
         :root {
-            --bg-deep: #0c1716;
-            --bg-panel: #132221;
-            --gold: #c9a44f;
-            --gold-light: #e8cf8d;
+            --bg-deep: #0a100f;
+            --bg-panel: #101b18;
+            --bg-panel-2: #14211d;
+            --gold: #cfa85a;
+            --gold-light: #eed9a4;
             --gold-deep: #8a6d2f;
-            --paper: #f3ead6;
-            --paper-soft: #eadcbc;
-            --ink: #26332f;
-            --ink-soft: #6b7263;
-            --rust: #b4552d;
-            --line: #d6c69c;
+            --paper: #f5ecd6;
+            --paper-soft: #eadcbb;
+            --ink: #e9e3d2;
+            --ink-soft: #a3a892;
+            --ink-faint: #6d7566;
+            --rust: #b3402f;
+            --line: rgba(207, 168, 90, 0.16);
+            --line-strong: rgba(207, 168, 90, 0.34);
             --radius: 6px;
             --font-title: {% if t2i_font_source == 'Mainland' %}'Noto Serif SC', 'Noto Serif TC'{% else %}'Noto Serif TC', 'Noto Serif SC'{% endif %}, serif;
             --font-body: {% if t2i_font_source == 'Mainland' %}'Noto Sans SC', 'Noto Sans TC'{% else %}'Noto Sans TC', 'Noto Sans SC'{% endif %}, sans-serif;
+            --font-latin: 'Cormorant Garamond', 'Noto Serif SC', serif;
         }
 
         * {
@@ -38,23 +42,62 @@
         html {
             background-color: var(--bg-deep);
             background-image:
-                radial-gradient(ellipse 700px 460px at 50% -60px, rgba(201, 164, 79, 0.12) 0%, transparent 70%),
-                repeating-linear-gradient(115deg, transparent 0 46px, rgba(232, 207, 141, 0.035) 46px 47px),
-                linear-gradient(180deg, #101d1c 0%, var(--bg-deep) 320px);
-            background-repeat: no-repeat, repeat, no-repeat;
+                radial-gradient(ellipse 640px 420px at 50% -80px, rgba(207, 168, 90, 0.14) 0%, transparent 70%),
+                radial-gradient(ellipse 900px 700px at 50% 46%, rgba(22, 40, 34, 0.55) 0%, transparent 100%),
+                radial-gradient(ellipse 700px 500px at 8% 108%, rgba(207, 168, 90, 0.05) 0%, transparent 70%);
+            background-repeat: no-repeat;
+            background-attachment: fixed;
         }
 
         body {
             font-family: var(--font-body);
-            color: var(--gold-light);
+            color: var(--ink);
+            font-size: 15px;
+            line-height: 1.9;
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
+            position: relative;
+            background: transparent;
+        }
+
+        /* 纸张噪点（内联 SVG，无外部资源） */
+        body::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+            opacity: 0.05;
+            mix-blend-mode: soft-light;
         }
 
         .page {
             width: 750px;
             margin: 0 auto;
-            padding: 0 34px 56px;
+            padding: 0 46px 64px;
+            position: relative;
+        }
+
+        /* 星点 */
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background-image:
+                radial-gradient(1.4px 1.4px at 8% 6%, rgba(238, 217, 164, 0.5) 50%, transparent 51%),
+                radial-gradient(1px 1px at 22% 11%, rgba(238, 217, 164, 0.3) 50%, transparent 51%),
+                radial-gradient(1.6px 1.6px at 36% 4%, rgba(238, 217, 164, 0.38) 50%, transparent 51%),
+                radial-gradient(1px 1px at 52% 9%, rgba(238, 217, 164, 0.28) 50%, transparent 51%),
+                radial-gradient(1.3px 1.3px at 66% 5%, rgba(238, 217, 164, 0.42) 50%, transparent 51%),
+                radial-gradient(1px 1px at 82% 10%, rgba(238, 217, 164, 0.3) 50%, transparent 51%),
+                radial-gradient(1.5px 1.5px at 93% 3%, rgba(238, 217, 164, 0.45) 50%, transparent 51%),
+                radial-gradient(1px 1px at 14% 22%, rgba(238, 217, 164, 0.2) 50%, transparent 51%),
+                radial-gradient(1.2px 1.2px at 75% 24%, rgba(238, 217, 164, 0.24) 50%, transparent 51%),
+                radial-gradient(1px 1px at 45% 17%, rgba(238, 217, 164, 0.2) 50%, transparent 51%);
+            background-repeat: no-repeat;
         }
 
         .avoid-break {
@@ -62,254 +105,351 @@
             break-inside: avoid;
         }
 
-        /* ============ 胶片齿孔（顶部） ============ */
-        .film-strip {
-            display: flex;
-            justify-content: space-between;
-            padding: 14px 6px;
-        }
-
-        .film-hole {
-            width: 16px;
-            height: 10px;
-            border-radius: 3px;
-            border: 1px solid rgba(201, 164, 79, 0.55);
-            background: rgba(201, 164, 79, 0.08);
-        }
-
-        /* ============ Header ============ */
-        .hero {
+        /* ============ 报头 ============ */
+        .masthead {
             text-align: center;
-            padding: 26px 20px 30px;
-            border: 1px solid rgba(201, 164, 79, 0.55);
-            outline: 1px solid rgba(201, 164, 79, 0.25);
-            outline-offset: 5px;
-            background: linear-gradient(180deg, rgba(201, 164, 79, 0.07), rgba(201, 164, 79, 0.02));
+            padding: 44px 12px 26px;
             position: relative;
         }
 
-        .hero-badge {
-            display: inline-block;
+        .mast-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
             font-size: 11px;
-            letter-spacing: 4px;
+            letter-spacing: 6px;
             color: var(--gold);
-            border-top: 1px solid rgba(201, 164, 79, 0.5);
-            border-bottom: 1px solid rgba(201, 164, 79, 0.5);
-            padding: 5px 18px;
-            margin-bottom: 16px;
+            opacity: 0.85;
+        }
+
+        .mast-kicker::before,
+        .mast-kicker::after {
+            content: "";
+            width: 74px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--line-strong));
+        }
+
+        .mast-kicker::after {
+            background: linear-gradient(90deg, var(--line-strong), transparent);
         }
 
         .hero-clock {
-            margin: 2px auto 10px;
+            margin: 22px auto 6px;
             display: block;
         }
 
-        .hero-title {
+        .mast-title {
             font-family: var(--font-title);
             font-weight: 900;
-            font-size: 38px;
-            letter-spacing: 6px;
-            background: linear-gradient(180deg, var(--gold-light) 15%, var(--gold) 55%, var(--gold-deep) 100%);
+            font-size: 46px;
+            letter-spacing: 12px;
+            text-indent: 12px;
+            line-height: 1.35;
+            background: linear-gradient(178deg, #f7ecc9 8%, var(--gold-light) 38%, var(--gold) 62%, #9c7a38 96%);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            margin-bottom: 10px;
+            filter: drop-shadow(0 2px 10px rgba(207, 168, 90, 0.18));
         }
 
-        .hero-sub {
-            font-size: 12px;
-            letter-spacing: 5px;
-            color: rgba(232, 207, 141, 0.65);
-            margin-bottom: 14px;
+        .mast-latin {
+            font-family: var(--font-latin);
+            font-style: italic;
+            font-weight: 500;
+            font-size: 14px;
+            letter-spacing: 7px;
+            color: rgba(238, 217, 164, 0.55);
+            margin-top: 2px;
         }
 
-        .hero-date {
-            display: inline-block;
-            font-size: 13px;
-            color: var(--gold-light);
-            border: 1px solid rgba(201, 164, 79, 0.45);
-            padding: 5px 16px;
-            letter-spacing: 1px;
-        }
-
-        .hero-anno {
-            margin-top: 12px;
-            font-size: 11px;
-            color: rgba(232, 207, 141, 0.5);
-            letter-spacing: 2px;
-        }
-
-        /* ============ KPI 黄铜铭牌 ============ */
-        .kpi-row {
+        .mast-rule {
+            width: 320px;
+            margin: 20px auto 18px;
             display: flex;
-            gap: 12px;
-            margin-top: 22px;
+            align-items: center;
+            gap: 10px;
         }
 
-        .kpi-card {
+        .mast-rule::before,
+        .mast-rule::after {
+            content: "";
             flex: 1;
-            text-align: center;
-            background: var(--bg-panel);
-            border: 1px solid rgba(201, 164, 79, 0.5);
-            padding: 14px 6px 12px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--line-strong));
+        }
+
+        .mast-rule::after {
+            background: linear-gradient(90deg, var(--line-strong), transparent);
+        }
+
+        .mast-rule i {
+            width: 6px;
+            height: 6px;
+            background: var(--gold);
+            transform: rotate(45deg);
+            box-shadow: 0 0 0 3px rgba(207, 168, 90, 0.16);
+        }
+
+        .mast-date {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 10px;
+            font-size: 12px;
+            letter-spacing: 2px;
+            color: var(--ink-soft);
+            border: 1px solid var(--line-strong);
+            padding: 7px 22px;
+            background: linear-gradient(180deg, rgba(207, 168, 90, 0.07), rgba(207, 168, 90, 0.02));
             position: relative;
         }
 
-        .kpi-card::before {
-            content: "";
-            position: absolute;
-            top: 4px;
-            left: 4px;
-            right: 4px;
-            bottom: 4px;
-            border: 1px solid rgba(201, 164, 79, 0.2);
-            pointer-events: none;
+        .mast-date b {
+            font-family: var(--font-title);
+            font-weight: 700;
+            color: var(--gold-light);
+            letter-spacing: 1px;
+        }
+
+        .mast-date b + b {
+            color: var(--ink);
+            font-family: var(--font-body);
+            font-weight: 500;
+        }
+
+        .mast-anno {
+            margin-top: 16px;
+            font-family: var(--font-title);
+            font-size: 12px;
+            letter-spacing: 4px;
+            color: rgba(238, 217, 164, 0.42);
+        }
+
+        /* ============ KPI ============ */
+        .kpi-row {
+            display: flex;
+            margin: 30px -46px 0;
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .kpi-cell {
+            flex: 1;
+            text-align: center;
+            padding: 20px 4px 18px;
+            position: relative;
+        }
+
+        .kpi-cell + .kpi-cell {
+            border-left: 1px solid var(--line);
         }
 
         .kpi-num {
             font-family: var(--font-title);
-            font-size: 27px;
-            font-weight: 700;
-            color: var(--gold-light);
+            font-weight: 900;
+            font-size: 34px;
+            line-height: 1.2;
+            letter-spacing: 2px;
+            background: linear-gradient(180deg, #f7ecc9 10%, var(--gold-light) 45%, var(--gold) 78%, #a38144 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .kpi-unit {
+            font-size: 11px;
+            color: var(--ink-faint);
+            margin-left: 2px;
         }
 
         .kpi-label {
-            font-size: 11px;
-            letter-spacing: 2px;
-            color: rgba(232, 207, 141, 0.6);
-            margin-top: 4px;
+            margin-top: 5px;
+            font-size: 12px;
+            letter-spacing: 4px;
+            color: var(--ink-soft);
         }
 
-        /* ============ Section（羊皮纸档案卡） ============ */
-        .section {
-            background: linear-gradient(180deg, var(--paper) 0%, var(--paper-soft) 100%);
-            border: 1px solid var(--gold);
-            border-radius: var(--radius);
-            padding: 24px 26px;
-            margin-top: 22px;
-            box-shadow:
-                0 0 0 4px var(--bg-deep),
-                0 0 0 5px rgba(201, 164, 79, 0.35),
-                0 10px 24px rgba(0, 0, 0, 0.45);
-            color: var(--ink);
+        .kpi-en {
+            margin-top: 3px;
+            font-family: var(--font-latin);
+            font-style: italic;
+            font-size: 10px;
+            letter-spacing: 3px;
+            color: var(--ink-faint);
+        }
+
+        /* ============ 主体区块 ============ */
+        .block {
+            margin-top: 40px;
+            padding-top: 24px;
+            border-top: 1px solid var(--line);
             position: relative;
         }
 
-        .section-title {
-            font-family: var(--font-title);
-            font-weight: 700;
-            font-size: 20px;
-            letter-spacing: 2px;
-            color: var(--ink);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 6px;
-        }
-
-        .section-title::before {
+        .block::before {
             content: "";
+            position: absolute;
+            top: -6px;
+            left: 0;
             width: 11px;
             height: 11px;
-            background: var(--gold);
+            background: var(--bg-deep);
+            border: 1px solid var(--gold);
             transform: rotate(45deg);
-            flex-shrink: 0;
-            box-shadow: 0 0 0 3px rgba(201, 164, 79, 0.25);
+            box-shadow: 0 0 0 5px var(--bg-deep);
         }
 
-        .section-title::after {
+        .block::after {
             content: "";
-            flex: 1;
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 30%;
             height: 1px;
-            background: linear-gradient(90deg, var(--gold) 0%, transparent 100%);
+            background: linear-gradient(90deg, transparent, rgba(207, 168, 90, 0.4));
         }
 
-        .section-sub {
-            font-size: 11px;
-            letter-spacing: 3px;
-            color: var(--gold-deep);
-            margin-bottom: 16px;
-        }
-
-        /* ============ Peak ============ */
-        .peak-box {
-            margin-top: 14px;
+        .sec-head {
             display: flex;
             align-items: center;
-            gap: 12px;
-            background: rgba(201, 164, 79, 0.14);
-            border: 1px dashed var(--gold-deep);
-            padding: 12px 16px;
+            gap: 18px;
+            margin-bottom: 18px;
         }
 
-        .peak-icon {
-            font-size: 20px;
+        .sec-no {
+            font-family: var(--font-title);
+            font-weight: 900;
+            font-size: 26px;
+            line-height: 1;
+            color: var(--rust);
+            text-shadow: 0 0 18px rgba(179, 64, 47, 0.35);
+            width: 38px;
+            flex-shrink: 0;
+            border-right: 1px solid var(--line-strong);
+            padding-right: 12px;
         }
 
-        .peak-text {
-            font-size: 14px;
+        .sec-title {
+            font-family: var(--font-title);
+            font-weight: 700;
+            font-size: 21px;
+            letter-spacing: 3px;
+            line-height: 1.4;
             color: var(--ink);
         }
 
-        .peak-text b {
-            font-family: var(--font-title);
-            font-size: 16px;
-            color: var(--rust);
+        .sec-sub {
+            font-family: var(--font-latin);
+            font-size: 10.5px;
+            letter-spacing: 4px;
+            color: var(--ink-faint);
+            margin-top: 2px;
         }
 
-        /* ============ Activity Chart (24h) ============ */
-        .chart-section {
-            display: flex;
-            align-items: flex-end;
-            justify-content: space-between;
-            height: 190px;
-            padding: 26px 6px 4px;
-            margin-top: 10px;
-            border-bottom: 2px solid var(--gold-deep);
-        }
-
-        .chart-column {
-            display: flex;
-            flex-direction: column;
+        /* ============ 峰值胶囊 ============ */
+        .peak-box {
+            display: inline-flex;
             align-items: center;
-            justify-content: flex-end;
-            height: 100%;
-            flex: 1;
-            margin: 0 2px;
+            gap: 10px;
+            border: 1px dashed var(--line-strong);
+            background: linear-gradient(180deg, rgba(207, 168, 90, 0.09), rgba(207, 168, 90, 0.03));
+            padding: 9px 18px;
+            margin: 2px 0 18px;
+            font-size: 13px;
+            letter-spacing: 1px;
+            color: var(--ink-soft);
+        }
+
+        .peak-box b {
+            font-family: var(--font-title);
+            font-weight: 700;
+            font-size: 15px;
+            letter-spacing: 2px;
+            color: var(--gold-light);
+        }
+
+        /* ============ 24h 图表（SVG 平滑曲线） ============ */
+        .chart-wrap {
             position: relative;
         }
 
-        .chart-bar {
+        .chart-svg {
             width: 100%;
-            min-height: 3px;
-            background: linear-gradient(180deg, var(--gold-light) 0%, var(--gold) 45%, var(--gold-deep) 100%);
-            opacity: 0.92;
-            transition: height 0.3s ease;
+            height: auto;
+            display: block;
         }
 
-        .chart-value {
-            position: absolute;
-            top: -20px;
+        .chart-svg .g-grid {
+            stroke: rgba(207, 168, 90, 0.10);
+            stroke-width: 1;
+        }
+
+        .chart-svg .g-axis {
+            stroke: rgba(207, 168, 90, 0.4);
+            stroke-width: 1.4;
+        }
+
+        .chart-svg .g-tick {
+            stroke: rgba(207, 168, 90, 0.22);
+            stroke-width: 1;
+        }
+
+        .chart-svg .g-hour {
+            font-size: 10.5px;
+            fill: var(--ink-faint);
+            text-anchor: middle;
+            letter-spacing: 1px;
+            font-family: var(--font-title);
+        }
+
+        .chart-svg .g-peak-line {
+            stroke: rgba(179, 64, 47, 0.4);
+            stroke-width: 1;
+            stroke-dasharray: 2 3;
+        }
+
+        .chart-svg .g-peak-dot {
+            fill: var(--rust);
+            stroke: var(--gold-light);
+            stroke-width: 1.5;
+        }
+
+        .chart-svg .g-peak-label {
             font-size: 11px;
+            fill: var(--gold-light);
+            text-anchor: middle;
+            letter-spacing: 1px;
             font-weight: 700;
-            color: var(--gold-deep);
-            width: 100%;
-            text-align: center;
+            font-family: var(--font-title);
         }
 
-        .chart-label {
-            margin-top: 8px;
-            font-size: 10px;
-            color: var(--ink-soft);
-            text-align: center;
+        .chart-caption {
+            margin-top: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 10.5px;
+            letter-spacing: 2px;
+            color: var(--ink-faint);
+            border-top: 1px solid var(--line);
+            padding-top: 10px;
         }
 
-        /* ============ Topics ============ */
+        .chart-caption b {
+            font-family: var(--font-latin);
+            font-style: italic;
+            font-weight: 600;
+            font-size: 12px;
+            letter-spacing: 2px;
+            color: var(--gold);
+        }
+
+        /* ============ 话题 ============ */
         .topic-item {
             display: flex;
-            gap: 14px;
-            padding: 14px 0;
-            border-bottom: 1px dashed var(--line);
+            gap: 18px;
+            padding: 16px 0 18px;
+            border-bottom: 1px solid var(--line);
         }
 
         .topic-item:last-child {
@@ -318,61 +458,70 @@
 
         .topic-no {
             flex-shrink: 0;
-            width: 30px;
-            height: 30px;
-            background: var(--ink);
-            color: var(--gold-light);
+            width: 44px;
+            text-align: center;
+            padding-top: 3px;
+        }
+
+        .topic-no b {
             font-family: var(--font-title);
-            font-size: 13px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: 2px;
-            border: 1px solid var(--gold);
-            transform: rotate(45deg);
+            font-weight: 900;
+            font-size: 22px;
+            line-height: 1.1;
+            color: var(--rust);
         }
 
         .topic-no span {
-            transform: rotate(-45deg);
+            display: block;
+            margin-top: 4px;
+            font-family: var(--font-latin);
+            font-size: 8px;
+            letter-spacing: 2.5px;
+            color: var(--ink-faint);
         }
 
         .topic-title {
             font-family: var(--font-title);
-            font-size: 16px;
             font-weight: 700;
+            font-size: 16.5px;
+            letter-spacing: 1px;
+            line-height: 1.5;
             color: var(--ink);
-            margin-bottom: 4px;
         }
 
         .topic-meta {
-            font-size: 12px;
-            color: var(--gold-deep);
-            margin-bottom: 6px;
-            letter-spacing: 1px;
+            margin-top: 4px;
+            font-size: 11.5px;
+            letter-spacing: 1.5px;
+            color: #b28c46;
+        }
+
+        .topic-meta::before {
+            content: "✦ ";
+            color: var(--gold);
+            font-size: 10px;
         }
 
         .topic-detail {
-            font-size: 13px;
-            color: var(--ink);
-            line-height: 1.75;
+            margin-top: 6px;
+            font-size: 13.5px;
+            line-height: 1.85;
+            color: var(--ink-soft);
         }
 
-        /* ============ User Titles ============ */
+        /* ============ 群友画像 ============ */
         .title-grid {
             display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
+            gap: 14px;
+            margin-top: 4px;
         }
 
         .title-card {
-            flex: 1 1 180px;
-            display: flex;
-            gap: 12px;
-            align-items: center;
-            background: rgba(255, 252, 244, 0.7);
-            border: 1px solid var(--line);
-            padding: 13px;
+            flex: 1 1 0;
+            background: linear-gradient(180deg, var(--bg-panel) 0%, var(--bg-panel-2) 100%);
+            border: 1px solid var(--line-strong);
+            padding: 18px 16px 16px;
+            text-align: center;
             position: relative;
         }
 
@@ -383,68 +532,95 @@
             left: 3px;
             right: 3px;
             bottom: 3px;
-            border: 1px solid rgba(201, 164, 79, 0.3);
+            border: 1px solid rgba(207, 168, 90, 0.12);
             pointer-events: none;
         }
 
-        .title-avatar {
-            width: 46px;
-            height: 46px;
-            border-radius: 50%;
-            overflow: hidden;
-            flex-shrink: 0;
-            background: var(--paper-soft);
-            border: 2px solid var(--gold);
-            box-shadow: 0 0 0 2px var(--paper), 0 0 0 3px rgba(201, 164, 79, 0.5);
+        .title-card::after {
+            content: "";
+            position: absolute;
+            top: -1px;
+            left: 24px;
+            right: 24px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
         }
 
-        .title-avatar img {
+        .t-avatar {
+            width: 62px;
+            height: 62px;
+            margin: 0 auto 12px;
+            border-radius: 50%;
+            overflow: hidden;
+            position: relative;
+            background: var(--bg-panel);
+            border: 1px solid var(--gold);
+            box-shadow:
+                0 0 0 4px var(--bg-deep),
+                0 0 0 5px var(--line-strong),
+                0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .t-avatar img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: block;
         }
 
-        .title-name {
+        .t-name {
             font-family: var(--font-title);
-            font-size: 15px;
             font-weight: 700;
+            font-size: 15px;
+            letter-spacing: 2px;
             color: var(--ink);
         }
 
-        .title-title {
+        .t-badges {
+            margin-top: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .t-title-tag {
             display: inline-block;
             font-size: 11px;
-            color: var(--paper);
-            background: var(--ink);
-            border: 1px solid var(--gold);
-            padding: 2px 9px;
-            margin-top: 4px;
             letter-spacing: 1px;
+            color: var(--gold-light);
+            background: rgba(207, 168, 90, 0.12);
+            border: 1px solid rgba(207, 168, 90, 0.45);
+            padding: 2px 9px;
+            font-family: var(--font-title);
+            font-weight: 700;
         }
 
-        .title-mbti {
+        .t-mbti {
             display: inline-block;
+            font-family: var(--font-latin);
             font-size: 10px;
-            color: var(--rust);
-            background: rgba(180, 85, 45, 0.12);
-            border: 1px solid rgba(180, 85, 45, 0.4);
-            padding: 2px 8px;
-            margin-left: 4px;
-            margin-top: 4px;
-        }
-
-        .title-reason {
-            font-size: 11px;
+            letter-spacing: 2px;
             color: var(--ink-soft);
-            line-height: 1.65;
-            margin-top: 6px;
+            border: 1px solid var(--line-strong);
+            padding: 2px 7px;
         }
 
-        /* ============ Quotes ============ */
+        .t-reason {
+            margin-top: 10px;
+            font-size: 11.5px;
+            line-height: 1.75;
+            color: var(--ink-soft);
+            text-align: left;
+            border-top: 1px solid var(--line);
+            padding-top: 10px;
+        }
+
+        /* ============ 金句 ============ */
         .quote-wrapper {
-            padding: 13px 0;
-            border-bottom: 1px dashed var(--line);
+            padding: 18px 0 20px;
+            border-bottom: 1px solid var(--line);
         }
 
         .quote-wrapper:last-child {
@@ -453,239 +629,317 @@
 
         .q-flex {
             display: flex;
-            gap: 12px;
+            gap: 16px;
+        }
+
+        .q-side {
+            flex-shrink: 0;
+            width: 56px;
+            text-align: center;
+            padding-top: 2px;
         }
 
         .q-avatar {
-            width: 40px;
-            height: 40px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             object-fit: cover;
-            flex-shrink: 0;
-            background: var(--paper-soft);
-            border: 2px solid var(--gold);
+            display: block;
+            margin: 0 auto;
+            background: var(--bg-panel);
+            border: 1px solid var(--gold);
+            box-shadow: 0 0 0 3px var(--bg-deep), 0 0 0 4px var(--line-strong);
         }
 
         .q-sender {
+            margin-top: 9px;
             font-family: var(--font-title);
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 700;
-            color: var(--gold-deep);
-            margin-bottom: 4px;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
+            color: var(--gold-light);
+        }
+
+        .q-main {
+            flex: 1;
+            min-width: 0;
         }
 
         .q-bubble {
-            background: rgba(255, 252, 244, 0.75);
-            border: 1px solid var(--line);
-            border-left: 3px solid var(--gold);
-            padding: 10px 14px;
-            font-size: 14px;
-            color: var(--ink);
-            line-height: 1.7;
             position: relative;
+            background: linear-gradient(180deg, rgba(207, 168, 90, 0.08), rgba(207, 168, 90, 0.03));
+            border: 1px solid var(--line-strong);
+            border-left: 2px solid var(--gold);
+            padding: 12px 18px 12px 40px;
+            font-family: var(--font-title);
+            font-size: 15px;
+            line-height: 1.8;
+            letter-spacing: 0.5px;
+            color: var(--ink);
         }
 
         .q-bubble::before {
             content: "❝";
             position: absolute;
-            top: -12px;
-            left: 6px;
-            font-size: 26px;
-            color: var(--gold);
+            top: 6px;
+            left: 12px;
+            font-size: 24px;
+            line-height: 1;
+            color: rgba(207, 168, 90, 0.75);
             font-family: var(--font-title);
         }
 
         .q-note {
-            font-size: 12px;
+            margin-top: 9px;
+            font-size: 12.5px;
+            line-height: 1.8;
             color: var(--ink-soft);
-            line-height: 1.7;
-            margin-top: 7px;
         }
 
-        .q-note .note-label {
+        .note-label {
             color: var(--rust);
             font-weight: 700;
+            letter-spacing: 1px;
         }
 
-        /* ============ Chat Quality ============ */
+        .note-label::after {
+            content: " —";
+        }
+
+        /* ============ 群聊质量锐评 ============ */
         .quality-summary {
-            font-size: 13px;
+            font-size: 13.5px;
+            line-height: 1.85;
+            color: var(--ink-soft);
+            margin-bottom: 8px;
+        }
+
+        .quality-summary b {
+            font-family: var(--font-title);
+            font-weight: 700;
+            color: var(--gold-light);
+            letter-spacing: 1px;
+        }
+
+        .quality-summary.head {
+            font-size: 15px;
             color: var(--ink);
-            line-height: 1.75;
-            margin-bottom: 12px;
+            border-left: 2px solid var(--gold);
+            padding-left: 14px;
+            margin: 2px 0 10px;
         }
 
         .dim-row {
             display: flex;
             align-items: center;
-            gap: 10px;
-            padding: 8px 0;
+            gap: 14px;
+            padding: 10px 0 6px;
             font-size: 12px;
         }
 
         .dim-name {
-            width: 88px;
+            width: 76px;
             flex-shrink: 0;
             color: var(--ink);
+            font-family: var(--font-title);
             font-weight: 700;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
         }
 
         .dim-bar-box {
             flex: 1;
-            height: 10px;
-            background: rgba(38, 51, 47, 0.12);
-            border: 1px solid rgba(201, 164, 79, 0.35);
+            height: 6px;
+            border-radius: 99px;
+            background: rgba(207, 168, 90, 0.10);
+            border: 1px solid rgba(207, 168, 90, 0.18);
             overflow: hidden;
         }
 
         .dim-bar {
             height: 100%;
-            background: linear-gradient(90deg, var(--gold-deep) 0%, var(--gold) 60%, var(--gold-light) 100%);
+            border-radius: 99px;
+            background: linear-gradient(90deg, var(--gold-deep) 0%, var(--gold) 55%, var(--gold-light) 100%);
+            box-shadow: 0 0 8px rgba(207, 168, 90, 0.4);
         }
 
         .dim-comment {
-            flex: 1.6;
+            flex: 1.4;
             color: var(--ink-soft);
-            line-height: 1.5;
         }
 
-        /* ============ Footer ============ */
+        /* ============ 页脚 ============ */
         .footer {
-            margin-top: 30px;
+            margin-top: 46px;
             text-align: center;
-            font-size: 11px;
-            color: rgba(232, 207, 141, 0.55);
-            line-height: 1.9;
-            letter-spacing: 1px;
+            border-top: 1px solid var(--line);
+            padding-top: 26px;
+            position: relative;
         }
 
-        .footer .stamp {
-            display: inline-block;
-            border: 1px solid rgba(201, 164, 79, 0.5);
+        .footer::before {
+            content: "";
+            position: absolute;
+            top: -6px;
+            left: 50%;
+            margin-left: -5px;
+            width: 10px;
+            height: 10px;
+            background: var(--bg-deep);
+            border: 1px solid var(--gold);
+            transform: rotate(45deg);
+            box-shadow: 0 0 0 5px var(--bg-deep);
+        }
+
+        .footer .seal {
+            display: inline-flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 82px;
+            height: 82px;
             border-radius: 50%;
-            width: 74px;
-            height: 74px;
-            line-height: 1.4;
-            padding-top: 20px;
-            font-size: 10px;
-            letter-spacing: 2px;
-            color: rgba(201, 164, 79, 0.75);
-            transform: rotate(-8deg);
-            margin-bottom: 14px;
+            border: 1.5px solid rgba(179, 64, 47, 0.75);
+            outline: 1px dashed rgba(179, 64, 47, 0.5);
+            outline-offset: -9px;
+            color: rgba(179, 64, 47, 0.92);
+            font-family: var(--font-title);
+            font-weight: 900;
+            font-size: 14px;
+            line-height: 1.7;
+            letter-spacing: 3px;
+            transform: rotate(-7deg);
+            margin-bottom: 18px;
         }
 
-        .footer .token-line {
-            color: rgba(232, 207, 141, 0.35);
+        .footer .seal span {
+            font-family: var(--font-latin);
+            font-style: italic;
+            font-size: 8px;
+            font-weight: 500;
+            letter-spacing: 3px;
+            color: rgba(179, 64, 47, 0.7);
+        }
+
+        .footer-line {
+            font-size: 12px;
+            letter-spacing: 2px;
+            color: var(--ink-soft);
+        }
+
+        .token-line {
+            margin-top: 6px;
+            font-size: 10.5px;
+            letter-spacing: 1.5px;
+            color: var(--ink-faint);
         }
     </style>
 </head>
 
 <body>
     <div class="page">
-        <!-- 胶片齿孔 -->
-        <div class="film-strip">
-            {% for i in range(14) %}<div class="film-hole"></div>{% endfor %}
-        </div>
+        <div class="stars"></div>
 
-        <!-- 头部 -->
-        <div class="hero">
-            <div class="hero-badge">TIMEKEEPER'S FIELD LOG · 司辰观测日志</div>
-            <svg class="hero-clock" width="72" height="72" viewBox="0 0 72 72" fill="none"
-                xmlns="http://www.w3.org/2000/svg">
-                <circle cx="36" cy="36" r="32" stroke="#c9a44f" stroke-width="1.6" />
-                <circle cx="36" cy="36" r="27" stroke="#c9a44f" stroke-width="0.7" opacity="0.55" />
-                <g stroke="#c9a44f" stroke-width="1.4">
-                    <line x1="36" y1="7" x2="36" y2="12" />
-                    <line x1="36" y1="60" x2="36" y2="65" />
-                    <line x1="7" y1="36" x2="12" y2="36" />
-                    <line x1="60" y1="36" x2="65" y2="36" />
+        <!-- 报头 -->
+        <div class="masthead">
+            <div class="mast-kicker">TIMEKEEPER'S FIELD LOG · 司辰观测日志</div>
+            <svg class="hero-clock" width="84" height="84" viewBox="0 0 84 84" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="42" cy="42" r="38" stroke="#cfa85a" stroke-width="1.2" opacity="0.9" />
+                <circle cx="42" cy="42" r="32.5" stroke="#cfa85a" stroke-width="0.6" opacity="0.5" />
+                <g stroke="#cfa85a" stroke-width="1.2" opacity="0.85">
+                    <line x1="42" y1="6.5" x2="42" y2="12" />
+                    <line x1="42" y1="72" x2="42" y2="77.5" />
+                    <line x1="6.5" y1="42" x2="12" y2="42" />
+                    <line x1="72" y1="42" x2="77.5" y2="42" />
                 </g>
-                <g stroke="#c9a44f" stroke-width="0.8" opacity="0.6">
-                    <line x1="50.5" y1="10.9" x2="48" y2="15.2" />
-                    <line x1="21.5" y1="10.9" x2="24" y2="15.2" />
-                    <line x1="50.5" y1="61.1" x2="48" y2="56.8" />
-                    <line x1="21.5" y1="61.1" x2="24" y2="56.8" />
-                    <line x1="10.9" y1="21.5" x2="15.2" y2="24" />
-                    <line x1="10.9" y1="50.5" x2="15.2" y2="48" />
-                    <line x1="61.1" y1="21.5" x2="56.8" y2="24" />
-                    <line x1="61.1" y1="50.5" x2="56.8" y2="48" />
+                <g stroke="#cfa85a" stroke-width="0.7" opacity="0.55">
+                    <line x1="59.2" y1="16.3" x2="56" y2="20.2" />
+                    <line x1="24.8" y1="16.3" x2="28" y2="20.2" />
+                    <line x1="59.2" y1="67.7" x2="56" y2="63.8" />
+                    <line x1="24.8" y1="67.7" x2="28" y2="63.8" />
+                    <line x1="16.3" y1="24.8" x2="20.2" y2="28" />
+                    <line x1="16.3" y1="59.2" x2="20.2" y2="56" />
+                    <line x1="67.7" y1="24.8" x2="63.8" y2="28" />
+                    <line x1="67.7" y1="59.2" x2="63.8" y2="56" />
                 </g>
-                <!-- 逆时针行走的指针 -->
-                <line x1="36" y1="36" x2="36" y2="16" stroke="#e8cf8d" stroke-width="2.4"
-                    stroke-linecap="round" transform="rotate(-50 36 36)" />
-                <line x1="36" y1="36" x2="36" y2="12" stroke="#e8cf8d" stroke-width="1.4"
-                    stroke-linecap="round" transform="rotate(140 36 36)" />
-                <circle cx="36" cy="36" r="2.6" fill="#c9a44f" />
-                <!-- 回溯箭头 -->
-                <path d="M 58 22 A 26 26 0 0 0 22 14" stroke="#e8cf8d" stroke-width="1.6" fill="none" />
-                <path d="M 18 10 L 22 14 L 17 18" stroke="#e8cf8d" stroke-width="1.6" fill="none"
-                    stroke-linecap="round" stroke-linejoin="round" />
+                <!-- 逆时针指针 + 回溯弧线 -->
+                <line x1="42" y1="42" x2="42" y2="19" stroke="#eed9a4" stroke-width="2.2" stroke-linecap="round" transform="rotate(-52 42 42)" />
+                <line x1="42" y1="42" x2="42" y2="13.5" stroke="#eed9a4" stroke-width="1.3" stroke-linecap="round" transform="rotate(142 42 42)" />
+                <circle cx="42" cy="42" r="2.6" fill="#cfa85a" />
+                <path d="M 67 26 A 31 31 0 0 0 25 15" stroke="#eed9a4" stroke-width="1.4" fill="none" opacity="0.85" />
+                <path d="M 21 10.5 L 25 15 L 19.5 19" stroke="#eed9a4" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.85" />
             </svg>
-            <div class="hero-title">群聊日常分析</div>
-            <div class="hero-sub">DAILY GROUP DIGEST · IN REVERSE</div>
-            <div class="hero-date">档案日期 {{ current_date }} · 记录时刻 {{ current_datetime }}</div>
-            <div class="hero-anno">「暴雨」未曾冲走的，都已被记录</div>
+            <div class="mast-title">群聊日常分析</div>
+            <div class="mast-latin">DAILY GROUP DIGEST &mdash; IN REVERSE</div>
+            <div class="mast-rule"><i></i></div>
+            <div class="mast-date">
+                <span>档案日期</span><b>{{ current_date }}</b><span>·</span><span>记录时刻</span><b>{{ current_datetime }}</b>
+            </div>
+            <div class="mast-anno">「暴雨」未曾冲走的，都已被记录</div>
         </div>
 
         <!-- 核心指标 -->
         <div class="kpi-row">
-            <div class="kpi-card">
-                <div class="kpi-num">{{ message_count }}</div>
+            <div class="kpi-cell">
+                <div class="kpi-num">{{ message_count }}<span class="kpi-unit">条</span></div>
                 <div class="kpi-label">消息总数</div>
+                <div class="kpi-en">Messages</div>
             </div>
-            <div class="kpi-card">
-                <div class="kpi-num">{{ participant_count }}</div>
+            <div class="kpi-cell">
+                <div class="kpi-num">{{ participant_count }}<span class="kpi-unit">人</span></div>
                 <div class="kpi-label">参与人数</div>
+                <div class="kpi-en">Members</div>
             </div>
-            <div class="kpi-card">
-                <div class="kpi-num">{{ emoji_count }}</div>
+            <div class="kpi-cell">
+                <div class="kpi-num">{{ emoji_count }}<span class="kpi-unit">枚</span></div>
                 <div class="kpi-label">表情包</div>
+                <div class="kpi-en">Stickers</div>
             </div>
-            <div class="kpi-card">
-                <div class="kpi-num">{{ total_characters }}</div>
+            <div class="kpi-cell">
+                <div class="kpi-num">{{ total_characters }}<span class="kpi-unit">字</span></div>
                 <div class="kpi-label">文字总量</div>
+                <div class="kpi-en">Characters</div>
             </div>
         </div>
 
-        <!-- 活跃时段 + 24h 图表 -->
-        <div class="section">
-            <div class="section-title">今日活跃轨迹</div>
-            <div class="section-sub">24H REWIND TRACK · 时间回溯</div>
-            <div class="peak-box">
-                <div class="peak-icon">⏳</div>
-                <div class="peak-text">最活跃时段：<b>{{ most_active_period }}</b></div>
+        <!-- 活跃时段 -->
+        <div class="block">
+            <div class="sec-head">
+                <div class="sec-no">壹</div>
+                <div>
+                    <div class="sec-title">今日活跃轨迹</div>
+                    <div class="sec-sub">CIRCLE OF HOURS &middot; 24H REWIND</div>
+                </div>
             </div>
+            <div class="peak-box">⏳ 最活跃时段：<b>{{ most_active_period }}</b></div>
             {{ hourly_chart_html | safe }}
         </div>
 
         <!-- 话题 -->
-        <div class="section">
+        <div class="block">
             {{ topics_html | safe }}
         </div>
 
-        <!-- 群友称号与画像 -->
-        <div class="section">
+        <!-- 群友画像 -->
+        <div class="block">
             {{ titles_html | safe }}
         </div>
 
-        <!-- 金句与锐评 -->
-        <div class="section">
+        <!-- 金句 -->
+        <div class="block">
             {{ quotes_html | safe }}
         </div>
 
-        <!-- 聊天质量锐评（可能为空） -->
+        <!-- 群聊质量锐评（可能为空） -->
         {% if chat_quality_html %}
-        <div class="section">
+        <div class="block">
             {{ chat_quality_html | safe }}
         </div>
         {% endif %}
 
         <!-- 页脚 -->
         <div class="footer">
-            <div class="stamp">ARCHIVED<br>已归档</div>
-            <div>本报告由 AstrBot 群聊日常分析插件生成 · 暴雨过后，记录永存</div>
+            <div class="seal">已归档<span>ARCHIVED</span></div>
+            <div class="footer-line">本报告由 AstrBot 群聊日常分析插件生成 · 暴雨过后，记录永存</div>
             <div class="token-line">分析耗时 Token：{{ total_tokens }}（Prompt {{ prompt_tokens }} / 生成 {{ completion_tokens }}）</div>
         </div>
     </div>
