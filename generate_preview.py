@@ -170,14 +170,10 @@ _ART_URLS = {
     ("https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Johan_Doppelmayr%27s_celestial_chart_of_Pavo_and_Indus_"
      "%28cropped%29.jpg/1280px-Johan_Doppelmayr%27s_celestial_chart_of_Pavo_and_Indus_%28cropped%29.jpg"):
         _ART_DIR / "Doppelmayr-Pavo-1280px.jpg",
-    _m("1775130626446_1774881312214_atri1.webp"): _ART_DIR / "atri1.webp",
-    _m("1775130613783_1774881310058_atri3.webp"): _ART_DIR / "atri3.webp",
-    _m("1775130623112_1774881319340_atri4.webp"): _ART_DIR / "atri4.webp",
-    _m("1775130600453_1774881268554_可爱.webp"): _ART_DIR / "at_kaiai.webp",
-    _m("1775130585446_1774881263342_观察.webp"): _ART_DIR / "at_guancha.webp",
-    _m("1775130581843_1774881262835_疑惑.webp"): _ART_DIR / "at_yihuo.webp",
-    _m("1775130598778_1774881267181_得意.webp"): _ART_DIR / "at_deyi.webp",
-    _m("1775130605165_1774881270686_爱心.webp"): _ART_DIR / "at_aixin.webp",
+    "https://re.bluepoch.com/home/img/role/2.png": _ART_DIR / "Vertin-role2.png",
+    "https://re.bluepoch.com/home/img/role/3.png": _ART_DIR / "Sonetto-role3.png",
+    "https://re.bluepoch.com/home/img/role/4.png": _ART_DIR / "Mystic-role4.png",
+    "https://re.bluepoch.com/home/img/role/1t.png": _ART_DIR / "Re1999-butterfly.png",
 }
 for url, local in _ART_URLS.items():
     if local.is_file() and url in preview_html:

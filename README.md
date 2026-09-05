@@ -164,13 +164,15 @@ python generate_preview.py [模板名]     # 缺省为 gda_reverse_1999
 - **Doppelmayr 1730 孔雀座星图**（PD）—— 页脚第二枚小纪念章（`footer-art2`）：
   `https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Johan_Doppelmayr%27s_celestial_chart_of_Pavo_and_Indus_%28cropped%29.jpg/1280px-Johan_Doppelmayr%27s_celestial_chart_of_Pavo_and_Indus_%28cropped%29.jpg`
 
-> **二次元立绘（自用素材）**：人物立绘与表情贴纸来自 **Atri 渲染服务官方文件镜像**
-> （`t2i_atri_font_mirror`，默认 `https://tc.ciallo.ccwu.cc`，与内置 ATRI 模板同源）：
-> - `atri1.webp`（头图欢呼立绘）/ `atri3.webp`(页脚探底) / `atri4.webp`（质量锐评卡小立绘）
-> - `可爱/观察/疑惑/得意/爱心.webp`（各区标题表情贴纸）
-> 以上素材版权归原权利方所有，本仓库**仅供自用与演示**；如用于商业分发，
-> 请替换为已获得授权的立绘（README 声明：自用免责）。
-> 预览时 `generate_preview.py` 会把镜像地址替换为 `assets/<模板名>/art/` 下的本地副本。
+> **官方人物立绘（官网直链）**：角色立绘与徽记来自《重返未来：1999》官方网站
+> `https://re.bluepoch.com` 的静态资源（角色展示图 `img/role/N.png`，已验证可热链、无防盗链）：
+> - **维尔汀** `img/role/2.png`（头图主角「司辰」，1100+px 透明底立绘）
+> - **十四行诗** `img/role/3.png`（质量锐评卡小立绘）
+> - **绿衣神秘学家** `img/role/4.png`（页脚探底立绘）
+> - **官方蝴蝶徽记** `img/role/1t.png`（各区标题表情贴纸）
+> 以上素材版权归深蓝互动（Bluepoch）所有，本仓库**仅供自用与演示**；如用于商业分发，
+> 请替换为已获得授权的素材。预览时 `generate_preview.py` 会把官网地址
+> 替换为 `assets/<模板名>/art/` 下的本地副本。
 
 **人物用法**（对齐内置 ATRI / BlueArchive 模板的手法）：主角立绘以 `mix-blend-mode: multiply`
 直接「印」在羊皮纸卡上（版画白底与纸底融合，无需抠图），配 `filter: grayscale+sepia` 统一色调；
