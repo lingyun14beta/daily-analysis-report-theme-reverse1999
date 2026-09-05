@@ -151,6 +151,22 @@ main_ctx = {
 }
 preview_html = env.get_template("image_template.html").render(**main_ctx)
 
+# 模板中的 Wikimedia 直链在预览渲染时替换为本地副本（assets/<模板名>/art/），
+# 避免预览机 IP 被 Wikimedia 限流（429）导致截图缺少装饰图；模板文件本身仍引用直链。
+_ART_DIR = ROOT / "assets" / TPL_NAME / "art"
+_ART_URLS = {
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/FlammarionWoodcut.jpg/1280px-FlammarionWoodcut.jpg":
+        _ART_DIR / "FlammarionWoodcut-1280px.jpg",
+    ("https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/"
+     "1852_Vuillemin_Astronomical_and_Cosmographical_Chart_-_Geographicus_-_Cosmographique-vuillemin-1852.jpg/"
+     "1280px-1852_Vuillemin_Astronomical_and_Cosmographical_Chart_-_Geographicus_-_Cosmographique-vuillemin-1852.jpg"):
+        _ART_DIR / "Vuillemin-1852-1280px.jpg",
+}
+for url, local in _ART_URLS.items():
+    if local.is_file() and url in preview_html:
+        preview_html = preview_html.replace(url, local.as_uri())
+        print(f"[art] 预览时替换为本地副本: {local.name}")
+
 with tempfile.TemporaryDirectory(prefix="tpl_preview_") as tmp:
     tmp_dir = Path(tmp)
     html_path = tmp_dir / "preview.html"

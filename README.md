@@ -150,6 +150,21 @@ python generate_preview.py [模板名]     # 缺省为 gda_reverse_1999
 `verify_demo.py` 的 mock 数据在生成脚本中扩展成了更完整的示例内容
 （3 位群友、2 条金句、质量锐评等），修改模板后重跑即可刷新预览图。
 
+## 装饰图来源（公共领域，Wikimedia 直链）
+
+模板报头与全页水印直接引用 Wikimedia Commons 上两张**公共领域**古版画（绝对 URL，
+CDN 无防盗链、无需署名，符合「模板内引用图片」规范）：
+
+- **Flammarion 木刻版画**（1888，佚名，PD，维基百科特色图片）—— 报头背后的鎏金星图：
+  `https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/FlammarionWoodcut.jpg/1280px-FlammarionWoodcut.jpg`
+- **Vuillemin 1852 宇宙志图**（A. Vuillemin，PD）—— 全页古籍水印：
+  `https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/1852_Vuillemin_Astronomical_and_Cosmographical_Chart_-_Geographicus_-_Cosmographique-vuillemin-1852.jpg/1280px-1852_Vuillemin_Astronomical_and_Cosmographical_Chart_-_Geographicus_-_Cosmographique-vuillemin-1852.jpg`
+
+两份装饰图在模板里通过 `background-image` 引用（失败时优雅降级、不破坏版面）。
+`assets/<模板名>/art/` 下保存了本地副本：`generate_preview.py` 渲染预览图时会把直链
+替换为本地文件 `file://` 路径，避免预览机 IP 被 Wikimedia 限流（429）导致截图缺图；
+**模板文件本身始终引用直链，不依赖本地副本**。
+
 ## 许可
 
 MIT，可自由复制修改。

@@ -46,7 +46,6 @@
                 radial-gradient(ellipse 900px 700px at 50% 46%, rgba(22, 40, 34, 0.55) 0%, transparent 100%),
                 radial-gradient(ellipse 700px 500px at 8% 108%, rgba(207, 168, 90, 0.05) 0%, transparent 70%);
             background-repeat: no-repeat;
-            background-attachment: fixed;
         }
 
         body {
@@ -76,6 +75,22 @@
             margin: 0 auto;
             padding: 0 46px 64px;
             position: relative;
+            overflow: hidden;
+        }
+
+        /* 全页古籍水印（Vuillemin 1852 宇宙图，Wikimedia 直链，PD 版权） */
+        .page-art {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/1852_Vuillemin_Astronomical_and_Cosmographical_Chart_-_Geographicus_-_Cosmographique-vuillemin-1852.jpg/1280px-1852_Vuillemin_Astronomical_and_Cosmographical_Chart_-_Geographicus_-_Cosmographique-vuillemin-1852.jpg");
+            background-position: center 38%;
+            background-size: 135% auto;
+            background-repeat: no-repeat;
+            opacity: 0.09;
+            mix-blend-mode: soft-light;
+            filter: sepia(0.85) saturate(1.5);
         }
 
         /* 星点 */
@@ -110,6 +125,33 @@
             text-align: center;
             padding: 44px 12px 26px;
             position: relative;
+            overflow: hidden;
+            border-radius: var(--radius);
+        }
+
+        /* 鎏金星图（Flammarion 1888 版画，Wikimedia 直链，PD 版权） */
+        .mast-art {
+            position: absolute;
+            left: 50%;
+            top: 46%;
+            width: 810px;
+            height: 736px;
+            transform: translate(-50%, -50%);
+            background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/FlammarionWoodcut.jpg/1280px-FlammarionWoodcut.jpg");
+            background-position: 50% 46%;
+            background-size: contain;
+            background-repeat: no-repeat;
+            mix-blend-mode: screen;
+            opacity: 0.3;
+            filter: grayscale(1) sepia(0.9) saturate(2.6) brightness(0.88);
+            -webkit-mask-image: radial-gradient(ellipse 55% 50% at 50% 46%, #000 26%, transparent 70%);
+            mask-image: radial-gradient(ellipse 55% 50% at 50% 46%, #000 26%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .masthead>*:not(.mast-art) {
+            position: relative;
+            z-index: 1;
         }
 
         .mast-kicker {
@@ -837,10 +879,12 @@
 
 <body>
     <div class="page">
+        <div class="page-art"></div>
         <div class="stars"></div>
 
         <!-- 报头 -->
         <div class="masthead">
+            <div class="mast-art"></div>
             <div class="mast-kicker">TIMEKEEPER'S FIELD LOG · 司辰观测日志</div>
             <svg class="hero-clock" width="84" height="84" viewBox="0 0 84 84" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="42" cy="42" r="38" stroke="#cfa85a" stroke-width="1.2" opacity="0.9" />
