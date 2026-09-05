@@ -163,11 +163,14 @@ python generate_preview.py [模板名]     # 缺省为 gda_reverse_1999
   `https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/FlammarionWoodcut.jpg/1280px-FlammarionWoodcut.jpg`
 - **Doppelmayr 1730 孔雀座星图**（PD）—— 页脚第二枚小纪念章（`footer-art2`）：
   `https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Johan_Doppelmayr%27s_celestial_chart_of_Pavo_and_Indus_%28cropped%29.jpg/1280px-Johan_Doppelmayr%27s_celestial_chart_of_Pavo_and_Indus_%28cropped%29.jpg`
-- **持浑天仪的天文学家**（1584 版画，美国国会图书馆藏，PD）—— 头图主角「司辰」：
-  贴在镶框古图右缘、配对话气泡（`hero-character` / `hero-bubble`）：
-  `https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Astronomer_holding_instrument_LCCN2006691905.jpg/960px-Astronomer_holding_instrument_LCCN2006691905.jpg`
-- **丢勒《天文学家》木刻**（Albrecht Dürer，PD）—— 页脚右下角探底大立绘（`deco-char`）：
-  `https://upload.wikimedia.org/wikipedia/commons/3/3b/Durer_astronomer.jpg`
+
+> **二次元立绘（自用素材）**：人物立绘与表情贴纸来自 **Atri 渲染服务官方文件镜像**
+> （`t2i_atri_font_mirror`，默认 `https://tc.ciallo.ccwu.cc`，与内置 ATRI 模板同源）：
+> - `atri1.webp`（头图欢呼立绘）/ `atri3.webp`(页脚探底) / `atri4.webp`（质量锐评卡小立绘）
+> - `可爱/观察/疑惑/得意/爱心.webp`（各区标题表情贴纸）
+> 以上素材版权归原权利方所有，本仓库**仅供自用与演示**；如用于商业分发，
+> 请替换为已获得授权的立绘（README 声明：自用免责）。
+> 预览时 `generate_preview.py` 会把镜像地址替换为 `assets/<模板名>/art/` 下的本地副本。
 
 **人物用法**（对齐内置 ATRI / BlueArchive 模板的手法）：主角立绘以 `mix-blend-mode: multiply`
 直接「印」在羊皮纸卡上（版画白底与纸底融合，无需抠图），配 `filter: grayscale+sepia` 统一色调；

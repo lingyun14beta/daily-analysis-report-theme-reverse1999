@@ -52,7 +52,7 @@ common = {
     "t2i_font_source": "Mainland",
     "t2i_google_fonts_mirror": "https://fonts.googleapis.com",
     "t2i_gstatic_mirror": "https://fonts.gstatic.com",
-    "t2i_atri_font_mirror": "",
+    "t2i_atri_font_mirror": "https://tc.ciallo.ccwu.cc",
 }
 sub_ctx = {
     "topics": [
@@ -154,6 +154,12 @@ preview_html = env.get_template("image_template.html").render(**main_ctx)
 # 模板中的 Wikimedia 直链在预览渲染时替换为本地副本（assets/<模板名>/art/），
 # 避免预览机 IP 被 Wikimedia 限流（429）导致截图缺少装饰图；模板文件本身仍引用直链。
 _ART_DIR = ROOT / "assets" / TPL_NAME / "art"
+_MIRROR = "https://tc.ciallo.ccwu.cc"
+
+def _m(file: str) -> str:
+    return f"{_MIRROR}/file/{file}"
+
+
 _ART_URLS = {
     "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/FlammarionWoodcut.jpg/1280px-FlammarionWoodcut.jpg":
         _ART_DIR / "FlammarionWoodcut-1280px.jpg",
@@ -164,11 +170,14 @@ _ART_URLS = {
     ("https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Johan_Doppelmayr%27s_celestial_chart_of_Pavo_and_Indus_"
      "%28cropped%29.jpg/1280px-Johan_Doppelmayr%27s_celestial_chart_of_Pavo_and_Indus_%28cropped%29.jpg"):
         _ART_DIR / "Doppelmayr-Pavo-1280px.jpg",
-    ("https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/"
-     "Astronomer_holding_instrument_LCCN2006691905.jpg/960px-Astronomer_holding_instrument_LCCN2006691905.jpg"):
-        _ART_DIR / "Astronomer-1584-960px.jpg",
-    "https://upload.wikimedia.org/wikipedia/commons/3/3b/Durer_astronomer.jpg":
-        _ART_DIR / "Durer-Astronomer.jpg",
+    _m("1775130626446_1774881312214_atri1.webp"): _ART_DIR / "atri1.webp",
+    _m("1775130613783_1774881310058_atri3.webp"): _ART_DIR / "atri3.webp",
+    _m("1775130623112_1774881319340_atri4.webp"): _ART_DIR / "atri4.webp",
+    _m("1775130600453_1774881268554_可爱.webp"): _ART_DIR / "at_kaiai.webp",
+    _m("1775130585446_1774881263342_观察.webp"): _ART_DIR / "at_guancha.webp",
+    _m("1775130581843_1774881262835_疑惑.webp"): _ART_DIR / "at_yihuo.webp",
+    _m("1775130598778_1774881267181_得意.webp"): _ART_DIR / "at_deyi.webp",
+    _m("1775130605165_1774881270686_爱心.webp"): _ART_DIR / "at_aixin.webp",
 }
 for url, local in _ART_URLS.items():
     if local.is_file() and url in preview_html:

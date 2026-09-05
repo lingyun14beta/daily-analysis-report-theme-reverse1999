@@ -203,16 +203,15 @@
             color: var(--ink-faint);
         }
 
-        /* 人物：1584 持浑天仪的天文学家版画（LOC，PD）—— multiply 直接印在纸上 */
+        /* 人物：亚托莉立绘（Atri 渲染服务官方镜像）——二次元透明底立绘 */
         .hero-character {
             position: absolute;
-            right: -14px;
-            bottom: -6px;
-            width: 190px;
+            right: 4px;
+            bottom: -14px;
+            width: 186px;
             z-index: 3;
             pointer-events: none;
-            mix-blend-mode: multiply;
-            filter: grayscale(1) sepia(0.45) contrast(1.22) brightness(1.1);
+            filter: drop-shadow(0 10px 18px rgba(93, 74, 40, 0.18));
             transform: rotate(-1.5deg);
         }
 
@@ -1064,6 +1063,11 @@
             color: rgba(179, 64, 47, 0.75);
         }
 
+        .footer .footer-badges {
+            position: relative;
+            z-index: 3;
+        }
+
         .footer-line {
             margin-top: 18px;
             font-size: 12px;
@@ -1100,23 +1104,42 @@
             background: linear-gradient(90deg, var(--line-strong), transparent);
         }
 
-        /* 页脚人物：丢勒《天文学家》木刻（PD）—— 右下角探底 */
+        /* 页脚人物：亚托莉立绘半身像（Atri 官方镜像）—— 右下角探底 */
         .footer .deco-char {
             position: absolute;
-            right: -10px;
-            bottom: -8px;
-            width: 236px;
-            z-index: 0;
+            right: -30px;
+            bottom: -28px;
+            width: 262px;
+            z-index: 2;
             pointer-events: none;
-            mix-blend-mode: multiply;
-            filter: grayscale(1) sepia(0.5) contrast(1.1) brightness(1.08);
-            transform: rotate(1.5deg);
+            filter: drop-shadow(0 14px 22px rgba(93, 74, 40, 0.16));
+            transform: rotate(2deg);
         }
 
         .footer .deco-char img {
             display: block;
             width: 100%;
             height: auto;
+        }
+
+        /* 区块小立绘（质量锐评卡右下） */
+        .block-char {
+            position: absolute;
+            right: 10px;
+            bottom: -14px;
+            width: 150px;
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0.97;
+            filter: drop-shadow(0 10px 16px rgba(93, 74, 40, 0.14));
+        }
+
+        /* 标题表情贴纸 */
+        .sec-emoji {
+            width: 24px;
+            height: 24px;
+            vertical-align: -4px;
+            margin-left: 8px;
         }
 
         /* ============ 响应式 ============ */
@@ -1227,7 +1250,7 @@
                     </svg>
                 </div>
                 <div class="art-frame"></div>
-                <img class="hero-character" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Astronomer_holding_instrument_LCCN2006691905.jpg/960px-Astronomer_holding_instrument_LCCN2006691905.jpg" alt="持浑天仪的天文学家">
+                <img class="hero-character" src="{{ t2i_atri_font_mirror }}/file/1775130626446_1774881312214_atri1.webp" alt="立绘">
                 <div class="art-caption">TABLEAU URANOGRAPHIQUE ET COSMOGRAPHIQUE · M. VUILLEMIN, 1852</div>
             </div>
 
@@ -1279,7 +1302,7 @@
             <div class="sec-head">
                 <div class="sec-no">壹</div>
                 <div>
-                    <div class="sec-title">今日活跃轨迹</div>
+                    <div class="sec-title">今日活跃轨迹<img class="sec-emoji" src="{{ t2i_atri_font_mirror }}/file/1775130605165_1774881270686_爱心.webp" alt=""></div>
                     <div class="sec-sub">CIRCLE OF HOURS &middot; 24H REWIND</div>
                 </div>
             </div>
@@ -1311,7 +1334,7 @@
 
         <!-- 页脚 -->
         <div class="footer">
-            <div class="deco-char avoid-break"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Durer_astronomer.jpg" alt="丢勒·天文学家"></div>
+            <div class="deco-char avoid-break"><img src="{{ t2i_atri_font_mirror }}/file/1775130613783_1774881310058_atri3.webp" alt="立绘"></div>
             <div class="footer-badges avoid-break">
                 <div class="footer-art"><div class="art-disc"></div></div>
                 <div class="footer-art2"><div class="art-disc2"></div></div>
